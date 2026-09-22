@@ -1,5 +1,5 @@
 import { Head, Link, router } from '@inertiajs/react';
-import { Pencil, Plus } from 'lucide-react';
+import { CalendarClock, Pencil, Plus, Ticket } from 'lucide-react';
 import { type FormEvent, useState } from 'react';
 import DeleteRoomDialog from '@/components/rooms/delete-room-dialog';
 import Heading from '@/components/heading';
@@ -7,6 +7,8 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { create, edit, index } from '@/routes/rooms';
+import { index as bookingsIndex } from '@/routes/rooms/bookings';
+import { edit as scheduleEdit } from '@/routes/rooms/schedule';
 import type { Paginated, Room, RoomDifficulty } from '@/types';
 
 type PageProps = {
@@ -168,13 +170,13 @@ export default function RoomsIndex({ rooms, filters }: PageProps) {
                                                 <Badge
                                                     variant={
                                                         difficultyVariant[
-                                                        room.difficulty
+                                                            room.difficulty
                                                         ]
                                                     }
                                                 >
                                                     {
                                                         difficultyLabel[
-                                                        room.difficulty
+                                                            room.difficulty
                                                         ]
                                                     }
                                                 </Badge>
@@ -204,6 +206,42 @@ export default function RoomsIndex({ rooms, filters }: PageProps) {
                                             </td>
                                             <td className="px-4 py-3">
                                                 <div className="flex items-center justify-end gap-2">
+                                                    <Button
+                                                        variant="ghost"
+                                                        size="icon"
+                                                        asChild
+                                                    >
+                                                        <Link
+                                                            href={scheduleEdit(
+                                                                room.id,
+                                                            )}
+                                                        >
+                                                            <CalendarClock />
+                                                            <span className="sr-only">
+                                                                Manage schedule
+                                                                for {room.name}
+                                                            </span>
+                                                        </Link>
+                                                    </Button>
+
+                                                    <Button
+                                                        variant="ghost"
+                                                        size="icon"
+                                                        asChild
+                                                    >
+                                                        <Link
+                                                            href={bookingsIndex(
+                                                                room.id,
+                                                            )}
+                                                        >
+                                                            <Ticket />
+                                                            <span className="sr-only">
+                                                                View bookings
+                                                                for {room.name}
+                                                            </span>
+                                                        </Link>
+                                                    </Button>
+
                                                     <Button
                                                         variant="ghost"
                                                         size="icon"

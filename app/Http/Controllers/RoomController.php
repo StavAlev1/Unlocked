@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\BookingStatus;
 use App\Http\Requests\StoreRoomRequest;
 use App\Http\Requests\UpdateRoomRequest;
 use App\Models\Room;
+use App\Models\Schedule;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -60,6 +64,8 @@ class RoomController extends Controller
                 'image_path' => $request->file('image')->store('rooms', 'public'),
             ]);
         }
+
+        $room->schedule()->create(Schedule::defaultAttributes());
 
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Room created.')]);
 
@@ -138,11 +144,30 @@ class RoomController extends Controller
 
         $this->authorize('delete', $room);
 
+        $hasUpcomingBookings = $room->schedule !== null && $room->schedule->bookings()
+            ->where('status', BookingStatus::Confirmed)
+            ->where('starts_at', '>=', now())
+            ->exists();
+
+        if ($hasUpcomingBookings) {
+            throw ValidationException::withMessages([
+                'room' => __('This room has upcoming bookings and cannot be deleted.'),
+            ]);
+        }
+
         if ($room->image_path !== null) {
             Storage::disk('public')->delete($room->image_path);
         }
 
-        $room->delete();
+        DB::transaction(function () use ($room): void {
+            // Only past/cancelled bookings can remain at this point (upcoming
+            // confirmed ones were already blocked above). bookings.schedule_id
+            // is restrictOnDelete as a safety net against silently destroying
+            // real booking history, so they must be cleared explicitly here.
+            $room->schedule?->bookings()->delete();
+            $room->schedule()->delete();
+            $room->delete();
+        });
 
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Room deleted.')]);
 

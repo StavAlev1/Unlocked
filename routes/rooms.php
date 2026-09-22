@@ -1,8 +1,20 @@
 <?php
 
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\RoomController;
+use App\Http\Controllers\RoomScheduleController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('rooms', RoomController::class)->except('show');
+
+    Route::prefix('rooms/{room}')->name('rooms.')->group(function () {
+        Route::get('schedule/edit', [RoomScheduleController::class, 'edit'])->name('schedule.edit');
+        Route::put('schedule', [RoomScheduleController::class, 'update'])->name('schedule.update');
+
+        Route::get('bookings', [BookingController::class, 'index'])->name('bookings.index');
+        Route::get('bookings/create', [BookingController::class, 'create'])->name('bookings.create');
+        Route::post('bookings', [BookingController::class, 'store'])->name('bookings.store');
+        Route::patch('bookings/{booking}/cancel', [BookingController::class, 'cancel'])->name('bookings.cancel');
+    });
 });

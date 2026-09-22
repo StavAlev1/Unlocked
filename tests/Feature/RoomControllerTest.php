@@ -1,6 +1,9 @@
 <?php
 
+use App\Enums\BookingStatus;
+use App\Models\Booking;
 use App\Models\Room;
+use App\Models\Schedule;
 use App\Models\User;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -241,6 +244,24 @@ describe('destroy', function () {
 
         $response->assertRedirect(route('rooms.index'));
         expect($room->fresh())->toBeNull();
+    });
+
+    test('a room with a future confirmed booking cannot be deleted', function () {
+        $this->travelTo('2026-09-22 08:00:00');
+        $user = User::factory()->create();
+        $room = Room::factory()->for($user)->create();
+        $schedule = Schedule::factory()->for($room)->create();
+        Booking::factory()->for($schedule)->create([
+            'starts_at' => now()->addDay(),
+            'status' => BookingStatus::Confirmed,
+        ]);
+
+        $response = $this->actingAs($user)
+            ->from(route('rooms.index'))
+            ->delete(route('rooms.destroy', $room));
+
+        $response->assertSessionHasErrors('room');
+        expect($room->fresh())->not->toBeNull();
     });
 
     test('a different user gets a 404 when deleting another user room', function () {
