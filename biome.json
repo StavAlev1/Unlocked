@@ -25,10 +25,11 @@
     },
     "javascript": {
         "formatter": {
-            "quoteStyle": "single",
-            "jsxQuoteStyle": "double",
+            "quoteStyle": "double",
+            "jsxQuoteStyle": "single",
             "semicolons": "always",
-            "trailingCommas": "all"
+            "trailingCommas": "es5",
+            "bracketSameLine": true
         }
     },
     "linter": {

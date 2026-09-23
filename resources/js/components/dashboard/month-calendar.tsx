@@ -119,7 +119,7 @@ export default function MonthCalendar({
                             type="button"
                             onClick={() => onSelectDate(cell.dateKey)}
                             className={cn(
-                                'flex aspect-square flex-col items-center justify-center gap-0.5 rounded-md text-sm transition-colors',
+                                'flex aspect-square cursor-pointer flex-col items-center justify-center gap-0.5 rounded-md text-sm transition-colors',
                                 isSelected
                                     ? 'bg-primary text-primary-foreground'
                                     : 'hover:bg-accent hover:text-accent-foreground',

@@ -56,7 +56,7 @@ export default function Welcome() {
             <div className="min-h-screen bg-[#16140F] text-[#EFE7D8] antialiased">
                 <header className="mx-auto flex max-w-6xl items-center justify-between px-6 py-6 lg:px-10">
                     <span className="font-display flex items-center gap-2 text-lg font-semibold tracking-tight text-[#EFE7D8]">
-                        <LockGlyph className="h-4 w-4 text-[#C69A3E]" />
+                        <LockGlyph className="h-4 w-4 text-[#5A4FE8]" />
                         Unlocked
                     </span>
 
@@ -64,7 +64,7 @@ export default function Welcome() {
                         {auth.user ? (
                             <Link
                                 href={dashboard()}
-                                className="rounded-sm bg-[#C69A3E] px-4 py-2 font-medium text-[#16140F] transition-colors hover:bg-[#DBAF52]"
+                                className="rounded-sm bg-[#5A4FE8] px-4 py-2 font-medium text-[#F5F3FF] transition-colors hover:bg-[#8C82F9]"
                             >
                                 Go to dashboard
                             </Link>
@@ -72,13 +72,13 @@ export default function Welcome() {
                             <>
                                 <Link
                                     href={login()}
-                                    className="px-3 py-2 text-[#EFE7D8] transition-colors hover:text-[#C69A3E]"
+                                    className="px-3 py-2 text-[#EFE7D8] transition-colors hover:text-[#5A4FE8]"
                                 >
                                     Log in
                                 </Link>
                                 <Link
                                     href={register()}
-                                    className="rounded-sm bg-[#C69A3E] px-4 py-2 font-medium text-[#16140F] transition-colors hover:bg-[#DBAF52]"
+                                    className="rounded-sm bg-[#5A4FE8] px-4 py-2 font-medium text-[#F5F3FF] transition-colors hover:bg-[#8C82F9]"
                                 >
                                     Create account
                                 </Link>
@@ -105,13 +105,13 @@ export default function Welcome() {
                                 <div className="mt-8 flex flex-wrap items-center gap-4">
                                     <Link
                                         href={register()}
-                                        className="rounded-sm bg-[#C69A3E] px-6 py-3 text-sm font-medium text-[#16140F] transition-colors hover:bg-[#DBAF52]"
+                                        className="rounded-sm bg-[#5A4FE8] px-6 py-3 text-sm font-medium text-[#F5F3FF] transition-colors hover:bg-[#8C82F9]"
                                     >
                                         Create account
                                     </Link>
                                     <Link
                                         href={login()}
-                                        className="rounded-sm border border-[#4A4534] px-6 py-3 text-sm font-medium text-[#EFE7D8] transition-colors hover:border-[#C69A3E] hover:text-[#C69A3E]"
+                                        className="rounded-sm border border-[#4A4534] px-6 py-3 text-sm font-medium text-[#EFE7D8] transition-colors hover:border-[#5A4FE8] hover:text-[#5A4FE8]"
                                     >
                                         Log in
                                     </Link>
@@ -120,8 +120,8 @@ export default function Welcome() {
                         </div>
 
                         <div className="relative mx-auto flex aspect-square w-full max-w-sm items-center justify-center">
-                            <div className="absolute inset-8 rounded-full bg-[#C69A3E] opacity-20 blur-3xl motion-safe:animate-pulse" />
-                            <DialArt className="relative h-full w-full text-[#C69A3E]" />
+                            <div className="absolute inset-8 rounded-full bg-[#5A4FE8] opacity-20 blur-3xl motion-safe:animate-pulse" />
+                            <DialArt className="relative h-full w-full text-[#5A4FE8]" />
                         </div>
                     </section>
 
@@ -134,7 +134,7 @@ export default function Welcome() {
                             <div className="mt-10 grid gap-10 lg:grid-cols-3 lg:gap-8">
                                 {steps.map((step) => (
                                     <div key={step.number}>
-                                        <span className="font-mono-data text-sm text-[#C69A3E]">
+                                        <span className="font-mono-data text-sm text-[#5A4FE8]">
                                             {step.number}
                                         </span>
                                         <h3 className="font-display mt-3 text-lg font-semibold text-[#EFE7D8]">
@@ -159,7 +159,7 @@ export default function Welcome() {
                                 {rooms.map((room) => (
                                     <div
                                         key={room.name}
-                                        className="border-l-2 border-[#C69A3E] bg-[#201C15] p-6"
+                                        className="border-l-2 border-[#5A4FE8] bg-[#201C15] p-6"
                                     >
                                         <h3 className="font-display text-lg font-semibold text-[#EFE7D8]">
                                             {room.name}
@@ -198,7 +198,7 @@ export default function Welcome() {
                             </p>
                             <Link
                                 href={register()}
-                                className="mt-8 inline-block rounded-sm bg-[#C69A3E] px-6 py-3 text-sm font-medium text-[#16140F] transition-colors hover:bg-[#DBAF52]"
+                                className="mt-8 inline-block rounded-sm bg-[#5A4FE8] px-6 py-3 text-sm font-medium text-[#F5F3FF] transition-colors hover:bg-[#8C82F9]"
                             >
                                 Create account
                             </Link>
