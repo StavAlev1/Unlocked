@@ -80,13 +80,13 @@ export default function BookingsIndex({
             <Head title={`${room.name} bookings`} />
 
             <div className="space-y-6 p-4">
-                <div className="flex items-center justify-between gap-4">
+                <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <Heading
                         title={`${room.name} bookings`}
                         description="Manage this room's bookings"
                     />
 
-                    <div className="flex items-center gap-2">
+                    <div className="flex flex-wrap items-center gap-2">
                         <Button variant="outline" asChild>
                             <Link href={editSchedule(room.id)}>
                                 <CalendarClock />
@@ -136,8 +136,8 @@ export default function BookingsIndex({
                             </Button>
                         </form>
 
-                        <div className="border-sidebar-border/70 dark:border-sidebar-border overflow-hidden rounded-xl border">
-                            <table className="w-full text-sm">
+                        <div className="border-sidebar-border/70 dark:border-sidebar-border overflow-x-auto rounded-xl border">
+                            <table className="w-full min-w-[640px] text-sm">
                                 <thead className="bg-muted/50 text-muted-foreground border-b text-left">
                                     <tr>
                                         <th className="px-4 py-3 font-medium">

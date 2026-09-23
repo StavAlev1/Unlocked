@@ -32,7 +32,7 @@ export default function UsersIndex({ users, filters }: PageProps) {
             <Head title="Users" />
 
             <div className="space-y-6 p-4">
-                <div className="flex items-center justify-between gap-4">
+                <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
                     <Heading
                         title="Users"
                         description="Manage the accounts that can access this application"
@@ -58,8 +58,8 @@ export default function UsersIndex({ users, filters }: PageProps) {
                     </Button>
                 </form>
 
-                <div className="border-sidebar-border/70 dark:border-sidebar-border overflow-hidden rounded-xl border">
-                    <table className="w-full text-sm">
+                <div className="border-sidebar-border/70 dark:border-sidebar-border overflow-x-auto rounded-xl border">
+                    <table className="w-full min-w-[640px] text-sm">
                         <thead className="bg-muted/50 text-muted-foreground border-b text-left">
                             <tr>
                                 <th className="px-4 py-3 font-medium">Name</th>
