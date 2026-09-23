@@ -1,8 +1,8 @@
 import { Head, Link, router } from '@inertiajs/react';
 import { CalendarX, X } from 'lucide-react';
 import { type FormEvent, useState } from 'react';
-import CancelBookingDialog from '@/components/rooms/cancel-booking-dialog';
 import Heading from '@/components/heading';
+import CancelBookingDialog from '@/components/rooms/cancel-booking-dialog';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';

@@ -7,8 +7,8 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { index as roomsIndex } from '@/routes/rooms';
-import { edit as editSchedule } from '@/routes/rooms/schedule';
 import { create, index } from '@/routes/rooms/bookings';
+import { edit as editSchedule } from '@/routes/rooms/schedule';
 import type { Booking, BookingStatus, Paginated, Room } from '@/types';
 
 type PageProps = {

@@ -1,8 +1,8 @@
 import { Head, Link } from '@inertiajs/react';
 import { Plus } from 'lucide-react';
 import { useMemo, useState } from 'react';
-import Heading from '@/components/heading';
 import MonthCalendar from '@/components/dashboard/month-calendar';
+import Heading from '@/components/heading';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { dashboard } from '@/routes';

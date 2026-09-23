@@ -1,8 +1,8 @@
 import { Head, Link, router } from '@inertiajs/react';
 import { CalendarClock, Pencil, Plus, Ticket } from 'lucide-react';
 import { type FormEvent, useState } from 'react';
-import DeleteRoomDialog from '@/components/rooms/delete-room-dialog';
 import Heading from '@/components/heading';
+import DeleteRoomDialog from '@/components/rooms/delete-room-dialog';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';

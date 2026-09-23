@@ -8,10 +8,9 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { edit } from '@/routes/security';
 
-// oxfmt-ignore
 type Props = {
     passwordRules: string;
-} ;
+};
 
 export default function Security(props: Props) {
     const passwordInput = useRef<HTMLInputElement>(null);
