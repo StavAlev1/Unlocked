@@ -353,3 +353,105 @@ describe('cancel', function () {
         expect(Booking::find($booking->id))->not->toBeNull();
     });
 });
+
+describe('all', function () {
+    test('guests are redirected to the login page', function () {
+        $response = $this->get(route('bookings.index'));
+
+        $response->assertRedirect(route('login'));
+    });
+
+    test('only shows bookings from rooms the user owns', function () {
+        $user = User::factory()->create();
+        $otherUser = User::factory()->create();
+        $ownRoom = createRoomWithSchedule($user);
+        $otherRoom = createRoomWithSchedule($otherUser);
+        $ownBooking = Booking::factory()->for($ownRoom->schedule)->create();
+        Booking::factory()->for($otherRoom->schedule)->create();
+
+        $response = $this->actingAs($user)->get(route('bookings.index'));
+
+        $response->assertOk();
+        $response->assertInertia(fn ($page) => $page
+            ->has('bookings.data', 1)
+            ->where('bookings.data.0.id', $ownBooking->id)
+        );
+    });
+
+    test('the room filter only offers rooms the user owns', function () {
+        $user = User::factory()->create();
+        $otherUser = User::factory()->create();
+        createRoomWithSchedule($user, ['name' => 'My Room']);
+        createRoomWithSchedule($otherUser, ['name' => 'Their Room']);
+
+        $response = $this->actingAs($user)->get(route('bookings.index'));
+
+        $response->assertInertia(fn ($page) => $page
+            ->has('rooms', 1)
+            ->where('rooms.0.name', 'My Room')
+        );
+    });
+
+    test('filters by room', function () {
+        $user = User::factory()->create();
+        $roomA = createRoomWithSchedule($user);
+        $roomB = createRoomWithSchedule($user);
+        $bookingA = Booking::factory()->for($roomA->schedule)->create();
+        Booking::factory()->for($roomB->schedule)->create();
+
+        $response = $this->actingAs($user)->get(route('bookings.index', ['room' => $roomA->id]));
+
+        $response->assertInertia(fn ($page) => $page
+            ->has('bookings.data', 1)
+            ->where('bookings.data.0.id', $bookingA->id)
+        );
+    });
+
+    test('filters by status', function () {
+        $user = User::factory()->create();
+        $room = createRoomWithSchedule($user);
+        $confirmed = Booking::factory()->for($room->schedule)->create(['status' => BookingStatus::Confirmed]);
+        Booking::factory()->for($room->schedule)->create([
+            'status' => BookingStatus::Cancelled,
+            'cancelled_at' => now(),
+        ]);
+
+        $response = $this->actingAs($user)->get(route('bookings.index', ['status' => 'confirmed']));
+
+        $response->assertInertia(fn ($page) => $page
+            ->has('bookings.data', 1)
+            ->where('bookings.data.0.id', $confirmed->id)
+        );
+    });
+
+    test('filters by customer name or email', function () {
+        $user = User::factory()->create();
+        $room = createRoomWithSchedule($user);
+        $match = Booking::factory()->for($room->schedule)->create(['customer_name' => 'Jane Doe']);
+        Booking::factory()->for($room->schedule)->create(['customer_name' => 'John Smith']);
+
+        $response = $this->actingAs($user)->get(route('bookings.index', ['search' => 'jane']));
+
+        $response->assertInertia(fn ($page) => $page
+            ->has('bookings.data', 1)
+            ->where('bookings.data.0.id', $match->id)
+        );
+    });
+
+    test('filters by date range', function () {
+        $user = User::factory()->create();
+        $room = createRoomWithSchedule($user);
+        $inRange = Booking::factory()->for($room->schedule)->create(['starts_at' => '2026-06-15 12:00:00']);
+        Booking::factory()->for($room->schedule)->create(['starts_at' => '2026-07-01 12:00:00']);
+
+        $response = $this->actingAs($user)->get(route('bookings.index', [
+            'from' => '2026-06-01',
+            'to' => '2026-06-30',
+        ]));
+
+        $response->assertInertia(fn ($page) => $page
+            ->has('bookings.data', 1)
+            ->where('bookings.data.0.id', $inRange->id)
+        );
+    });
+});

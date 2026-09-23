@@ -23,7 +23,7 @@ export default function CancelBookingDialog({
     booking,
 }: {
     roomId: number;
-    booking: Booking;
+    booking: Pick<Booking, 'id' | 'customer_name'>;
 }) {
     return (
         <Dialog>

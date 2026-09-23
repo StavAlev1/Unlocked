@@ -14,3 +14,20 @@ export type Booking = {
     cancellation_reason: string | null;
     [key: string]: unknown;
 };
+
+/** A booking as listed on the cross-room /bookings overview. */
+export type BookingWithRoom = {
+    id: number;
+    starts_at: string;
+    ends_at: string;
+    party_size: number;
+    status: BookingStatus;
+    customer_name: string;
+    customer_email: string;
+    room: {
+        id: number;
+        name: string;
+        slug: string;
+    };
+    [key: string]: unknown;
+};

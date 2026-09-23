@@ -4,6 +4,7 @@ import {
     DoorClosed,
     FolderGit2,
     LayoutGrid,
+    Ticket,
     Users,
 } from 'lucide-react';
 import AppLogo from '@/components/app-logo';
@@ -21,6 +22,7 @@ import {
 } from '@/components/ui/sidebar';
 import { dashboard } from '@/routes';
 import { index as usersIndex } from '@/routes/admin/users';
+import { index as bookingsIndex } from '@/routes/bookings';
 import { index as roomsIndex } from '@/routes/rooms';
 import type { NavItem } from '@/types';
 
@@ -34,6 +36,11 @@ const mainNavItems: NavItem[] = [
         title: 'Rooms',
         href: roomsIndex(),
         icon: DoorClosed,
+    },
+    {
+        title: 'Bookings',
+        href: bookingsIndex(),
+        icon: Ticket,
     },
 ];
 
