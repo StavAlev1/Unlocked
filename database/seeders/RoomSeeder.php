@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Room;
+use App\Models\Schedule;
 use App\Models\User;
 use App\Support\RoomPlaceholderImage;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -33,7 +34,10 @@ class RoomSeeder extends Seeder
                 ->count(fake()->numberBetween(3, 6))
                 ->for($user)
                 ->create()
-                ->each($this->attachPlaceholderImage(...));
+                ->each(function (Room $room): void {
+                    $this->attachPlaceholderImage($room);
+                    $room->schedule()->create(Schedule::defaultAttributes());
+                });
         });
     }
 
