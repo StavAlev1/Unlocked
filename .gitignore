@@ -1,31 +1,43 @@
-/vendor/
-node_modules/
-npm-debug.log
-yarn-error.log
+# Dependencies
+/vendor
+/node_modules
 
-# Laravel 4 specific
-bootstrap/compiled.php
-app/storage/
-
-# Laravel 5 & Lumen specific
-public/storage
-public/hot
-
-# Laravel 5 & Lumen specific with changed public path
-public_html/storage
-public_html/hot
-
-storage/*.key
+# Environment and secrets
 .env
-Homestead.yaml
-Homestead.json
-/.vagrant
-.phpunit.result.cache
+.env.*
+!.env.example
+/auth.json
+/storage/*.key
 
+# Build output and generated assets
 /public/build
+/public/hot
+/public/storage
 /public/fonts-manifest.dev.json
+/bootstrap/ssr
+*.tsbuildinfo
+
+# Runtime and tooling caches
 /storage/pail
-.env.backup
-.env.production
+.phpunit.result.cache
+/.phpunit.cache
 .phpactor.json
-auth.json
+*.log
+
+# Local development environments
+Homestead.json
+Homestead.yaml
+/.vagrant
+
+# Editors and OS files
+/.idea
+/.vscode
+/.fleet
+/.nova
+/.zed
+.DS_Store
+Thumbs.db
+
+# Claude Code: personal settings and agent worktrees stay local
+/.claude/settings.local.json
+/.claude/worktrees
