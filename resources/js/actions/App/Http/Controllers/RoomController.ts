@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\RoomController::index
- * @see app/Http/Controllers/RoomController.php:24
+ * @see app/Http/Controllers/RoomController.php:25
  * @route '/rooms'
  */
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ index.definition = {
 
 /**
 * @see \App\Http\Controllers\RoomController::index
- * @see app/Http/Controllers/RoomController.php:24
+ * @see app/Http/Controllers/RoomController.php:25
  * @route '/rooms'
  */
 index.url = (options?: RouteQueryOptions) => {
@@ -25,7 +25,7 @@ index.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\RoomController::index
- * @see app/Http/Controllers/RoomController.php:24
+ * @see app/Http/Controllers/RoomController.php:25
  * @route '/rooms'
  */
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -34,7 +34,7 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 /**
 * @see \App\Http\Controllers\RoomController::index
- * @see app/Http/Controllers/RoomController.php:24
+ * @see app/Http/Controllers/RoomController.php:25
  * @route '/rooms'
  */
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -44,7 +44,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
     /**
 * @see \App\Http\Controllers\RoomController::index
- * @see app/Http/Controllers/RoomController.php:24
+ * @see app/Http/Controllers/RoomController.php:25
  * @route '/rooms'
  */
     const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -54,7 +54,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
             /**
 * @see \App\Http\Controllers\RoomController::index
- * @see app/Http/Controllers/RoomController.php:24
+ * @see app/Http/Controllers/RoomController.php:25
  * @route '/rooms'
  */
         indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -63,7 +63,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
         })
             /**
 * @see \App\Http\Controllers\RoomController::index
- * @see app/Http/Controllers/RoomController.php:24
+ * @see app/Http/Controllers/RoomController.php:25
  * @route '/rooms'
  */
         indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -79,7 +79,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     index.form = indexForm
 /**
 * @see \App\Http\Controllers\RoomController::create
- * @see app/Http/Controllers/RoomController.php:43
+ * @see app/Http/Controllers/RoomController.php:44
  * @route '/rooms/create'
  */
 export const create = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -94,7 +94,7 @@ create.definition = {
 
 /**
 * @see \App\Http\Controllers\RoomController::create
- * @see app/Http/Controllers/RoomController.php:43
+ * @see app/Http/Controllers/RoomController.php:44
  * @route '/rooms/create'
  */
 create.url = (options?: RouteQueryOptions) => {
@@ -103,7 +103,7 @@ create.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\RoomController::create
- * @see app/Http/Controllers/RoomController.php:43
+ * @see app/Http/Controllers/RoomController.php:44
  * @route '/rooms/create'
  */
 create.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -112,7 +112,7 @@ create.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 /**
 * @see \App\Http\Controllers\RoomController::create
- * @see app/Http/Controllers/RoomController.php:43
+ * @see app/Http/Controllers/RoomController.php:44
  * @route '/rooms/create'
  */
 create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -122,7 +122,7 @@ create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
     /**
 * @see \App\Http\Controllers\RoomController::create
- * @see app/Http/Controllers/RoomController.php:43
+ * @see app/Http/Controllers/RoomController.php:44
  * @route '/rooms/create'
  */
     const createForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -132,7 +132,7 @@ create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
             /**
 * @see \App\Http\Controllers\RoomController::create
- * @see app/Http/Controllers/RoomController.php:43
+ * @see app/Http/Controllers/RoomController.php:44
  * @route '/rooms/create'
  */
         createForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -141,7 +141,7 @@ create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
         })
             /**
 * @see \App\Http\Controllers\RoomController::create
- * @see app/Http/Controllers/RoomController.php:43
+ * @see app/Http/Controllers/RoomController.php:44
  * @route '/rooms/create'
  */
         createForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -157,7 +157,7 @@ create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     create.form = createForm
 /**
 * @see \App\Http\Controllers\RoomController::store
- * @see app/Http/Controllers/RoomController.php:51
+ * @see app/Http/Controllers/RoomController.php:52
  * @route '/rooms'
  */
 export const store = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -172,7 +172,7 @@ store.definition = {
 
 /**
 * @see \App\Http\Controllers\RoomController::store
- * @see app/Http/Controllers/RoomController.php:51
+ * @see app/Http/Controllers/RoomController.php:52
  * @route '/rooms'
  */
 store.url = (options?: RouteQueryOptions) => {
@@ -181,7 +181,7 @@ store.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\RoomController::store
- * @see app/Http/Controllers/RoomController.php:51
+ * @see app/Http/Controllers/RoomController.php:52
  * @route '/rooms'
  */
 store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -191,7 +191,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
     /**
 * @see \App\Http\Controllers\RoomController::store
- * @see app/Http/Controllers/RoomController.php:51
+ * @see app/Http/Controllers/RoomController.php:52
  * @route '/rooms'
  */
     const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -201,7 +201,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
             /**
 * @see \App\Http\Controllers\RoomController::store
- * @see app/Http/Controllers/RoomController.php:51
+ * @see app/Http/Controllers/RoomController.php:52
  * @route '/rooms'
  */
         storeForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -212,7 +212,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     store.form = storeForm
 /**
 * @see \App\Http\Controllers\RoomController::edit
- * @see app/Http/Controllers/RoomController.php:78
+ * @see app/Http/Controllers/RoomController.php:79
  * @route '/rooms/{room}/edit'
  */
 export const edit = (args: { room: string | number } | [room: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -227,7 +227,7 @@ edit.definition = {
 
 /**
 * @see \App\Http\Controllers\RoomController::edit
- * @see app/Http/Controllers/RoomController.php:78
+ * @see app/Http/Controllers/RoomController.php:79
  * @route '/rooms/{room}/edit'
  */
 edit.url = (args: { room: string | number } | [room: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -255,7 +255,7 @@ edit.url = (args: { room: string | number } | [room: string | number ] | string 
 
 /**
 * @see \App\Http\Controllers\RoomController::edit
- * @see app/Http/Controllers/RoomController.php:78
+ * @see app/Http/Controllers/RoomController.php:79
  * @route '/rooms/{room}/edit'
  */
 edit.get = (args: { room: string | number } | [room: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -264,7 +264,7 @@ edit.get = (args: { room: string | number } | [room: string | number ] | string 
 })
 /**
 * @see \App\Http\Controllers\RoomController::edit
- * @see app/Http/Controllers/RoomController.php:78
+ * @see app/Http/Controllers/RoomController.php:79
  * @route '/rooms/{room}/edit'
  */
 edit.head = (args: { room: string | number } | [room: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -274,7 +274,7 @@ edit.head = (args: { room: string | number } | [room: string | number ] | string
 
     /**
 * @see \App\Http\Controllers\RoomController::edit
- * @see app/Http/Controllers/RoomController.php:78
+ * @see app/Http/Controllers/RoomController.php:79
  * @route '/rooms/{room}/edit'
  */
     const editForm = (args: { room: string | number } | [room: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -284,7 +284,7 @@ edit.head = (args: { room: string | number } | [room: string | number ] | string
 
             /**
 * @see \App\Http\Controllers\RoomController::edit
- * @see app/Http/Controllers/RoomController.php:78
+ * @see app/Http/Controllers/RoomController.php:79
  * @route '/rooms/{room}/edit'
  */
         editForm.get = (args: { room: string | number } | [room: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -293,7 +293,7 @@ edit.head = (args: { room: string | number } | [room: string | number ] | string
         })
             /**
 * @see \App\Http\Controllers\RoomController::edit
- * @see app/Http/Controllers/RoomController.php:78
+ * @see app/Http/Controllers/RoomController.php:79
  * @route '/rooms/{room}/edit'
  */
         editForm.head = (args: { room: string | number } | [room: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -309,7 +309,7 @@ edit.head = (args: { room: string | number } | [room: string | number ] | string
     edit.form = editForm
 /**
 * @see \App\Http\Controllers\RoomController::update
- * @see app/Http/Controllers/RoomController.php:103
+ * @see app/Http/Controllers/RoomController.php:104
  * @route '/rooms/{room}'
  */
 export const update = (args: { room: string | number } | [room: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -324,7 +324,7 @@ update.definition = {
 
 /**
 * @see \App\Http\Controllers\RoomController::update
- * @see app/Http/Controllers/RoomController.php:103
+ * @see app/Http/Controllers/RoomController.php:104
  * @route '/rooms/{room}'
  */
 update.url = (args: { room: string | number } | [room: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -352,7 +352,7 @@ update.url = (args: { room: string | number } | [room: string | number ] | strin
 
 /**
 * @see \App\Http\Controllers\RoomController::update
- * @see app/Http/Controllers/RoomController.php:103
+ * @see app/Http/Controllers/RoomController.php:104
  * @route '/rooms/{room}'
  */
 update.put = (args: { room: string | number } | [room: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -361,7 +361,7 @@ update.put = (args: { room: string | number } | [room: string | number ] | strin
 })
 /**
 * @see \App\Http\Controllers\RoomController::update
- * @see app/Http/Controllers/RoomController.php:103
+ * @see app/Http/Controllers/RoomController.php:104
  * @route '/rooms/{room}'
  */
 update.patch = (args: { room: string | number } | [room: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
@@ -371,7 +371,7 @@ update.patch = (args: { room: string | number } | [room: string | number ] | str
 
     /**
 * @see \App\Http\Controllers\RoomController::update
- * @see app/Http/Controllers/RoomController.php:103
+ * @see app/Http/Controllers/RoomController.php:104
  * @route '/rooms/{room}'
  */
     const updateForm = (args: { room: string | number } | [room: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -386,7 +386,7 @@ update.patch = (args: { room: string | number } | [room: string | number ] | str
 
             /**
 * @see \App\Http\Controllers\RoomController::update
- * @see app/Http/Controllers/RoomController.php:103
+ * @see app/Http/Controllers/RoomController.php:104
  * @route '/rooms/{room}'
  */
         updateForm.put = (args: { room: string | number } | [room: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -400,7 +400,7 @@ update.patch = (args: { room: string | number } | [room: string | number ] | str
         })
             /**
 * @see \App\Http\Controllers\RoomController::update
- * @see app/Http/Controllers/RoomController.php:103
+ * @see app/Http/Controllers/RoomController.php:104
  * @route '/rooms/{room}'
  */
         updateForm.patch = (args: { room: string | number } | [room: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -416,7 +416,7 @@ update.patch = (args: { room: string | number } | [room: string | number ] | str
     update.form = updateForm
 /**
 * @see \App\Http\Controllers\RoomController::destroy
- * @see app/Http/Controllers/RoomController.php:141
+ * @see app/Http/Controllers/RoomController.php:142
  * @route '/rooms/{room}'
  */
 export const destroy = (args: { room: string | number } | [room: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -431,7 +431,7 @@ destroy.definition = {
 
 /**
 * @see \App\Http\Controllers\RoomController::destroy
- * @see app/Http/Controllers/RoomController.php:141
+ * @see app/Http/Controllers/RoomController.php:142
  * @route '/rooms/{room}'
  */
 destroy.url = (args: { room: string | number } | [room: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -459,7 +459,7 @@ destroy.url = (args: { room: string | number } | [room: string | number ] | stri
 
 /**
 * @see \App\Http\Controllers\RoomController::destroy
- * @see app/Http/Controllers/RoomController.php:141
+ * @see app/Http/Controllers/RoomController.php:142
  * @route '/rooms/{room}'
  */
 destroy.delete = (args: { room: string | number } | [room: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -469,7 +469,7 @@ destroy.delete = (args: { room: string | number } | [room: string | number ] | s
 
     /**
 * @see \App\Http\Controllers\RoomController::destroy
- * @see app/Http/Controllers/RoomController.php:141
+ * @see app/Http/Controllers/RoomController.php:142
  * @route '/rooms/{room}'
  */
     const destroyForm = (args: { room: string | number } | [room: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -484,7 +484,7 @@ destroy.delete = (args: { room: string | number } | [room: string | number ] | s
 
             /**
 * @see \App\Http\Controllers\RoomController::destroy
- * @see app/Http/Controllers/RoomController.php:141
+ * @see app/Http/Controllers/RoomController.php:142
  * @route '/rooms/{room}'
  */
         destroyForm.delete = (args: { room: string | number } | [room: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({

@@ -26,6 +26,7 @@ const setCookie = (name: string, value: string, days = 365): void => {
     }
 
     const maxAge = days * 24 * 60 * 60;
+    // biome-ignore lint/suspicious/noDocumentCookie: the Cookie Store API is not supported in all browsers yet, and the server reads this cookie on first paint to avoid a theme flash.
     document.cookie = `${name}=${value};path=/;max-age=${maxAge};SameSite=Lax`;
 };
 
@@ -58,7 +59,11 @@ const subscribe = (callback: () => void) => {
     return () => listeners.delete(callback);
 };
 
-const notify = (): void => listeners.forEach((listener) => listener());
+const notify = (): void => {
+    for (const listener of listeners) {
+        listener();
+    }
+};
 
 const mediaQuery = (): MediaQueryList | null => {
     if (typeof window === 'undefined') {

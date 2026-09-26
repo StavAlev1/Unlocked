@@ -6,6 +6,7 @@ use App\Enums\RoomDifficulty;
 use App\Models\Concerns\HasPublicUuid;
 use Database\Factories\RoomFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -39,7 +40,7 @@ class Room extends Model
     use HasFactory, HasPublicUuid;
 
     /**
-     * @var array<int, string>
+     * @var list<string>
      */
     protected $appends = ['image_url'];
 
@@ -64,7 +65,35 @@ class Room extends Model
     }
 
     /**
+     * Determine whether customers may see and book this room on the public
+     * site: the room and its schedule are switched on and its owner is approved.
+     */
+    public function isPubliclyBookable(): bool
+    {
+        return $this->is_active
+            && $this->schedule?->is_active === true
+            && $this->user->isApproved();
+    }
+
+    /**
+     * Scope a query to the rooms customers may see and book, matching
+     * isPubliclyBookable().
+     *
+     * @param  Builder<Room>  $query
+     * @return Builder<Room>
+     */
+    public function scopePubliclyBookable(Builder $query): Builder
+    {
+        return $query
+            ->where('is_active', true)
+            ->whereHas('schedule', fn (Builder $query) => $query->where('is_active', true))
+            ->whereHas('user', fn (Builder $query) => $query->approved());
+    }
+
+    /**
      * Get the publicly accessible URL for the room's image, if one is set.
+     *
+     * @return Attribute<string|null, never>
      */
     protected function imageUrl(): Attribute
     {

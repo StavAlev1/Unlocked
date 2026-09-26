@@ -54,13 +54,15 @@ export default function MonthCalendar({
         today.getUTCDate(),
     );
 
-    const cells: Array<{ day: number; dateKey: string } | null> = [
-        ...Array.from({ length: firstWeekday }, () => null),
-        ...Array.from({ length: daysInMonth }, (_, i) => ({
-            day: i + 1,
-            dateKey: toDateKey(year, monthIndex, i + 1),
-        })),
-    ];
+    // The empty cells before the 1st are keyed by the weekday column they fill.
+    const blankWeekdays = Array.from(
+        { length: firstWeekday },
+        (_, weekday) => weekday,
+    );
+    const days = Array.from({ length: daysInMonth }, (_, i) => ({
+        day: i + 1,
+        dateKey: toDateKey(year, monthIndex, i + 1),
+    }));
 
     return (
         <div className="border-sidebar-border/70 dark:border-sidebar-border rounded-xl border p-4">
@@ -104,11 +106,11 @@ export default function MonthCalendar({
                     </div>
                 ))}
 
-                {cells.map((cell, i) => {
-                    if (cell === null) {
-                        return <div key={`empty-${i}`} />;
-                    }
+                {blankWeekdays.map((weekday) => (
+                    <div key={`blank-${weekday}`} />
+                ))}
 
+                {days.map((cell) => {
                     const count = countsByDate[cell.dateKey] ?? 0;
                     const isToday = cell.dateKey === todayKey;
                     const isSelected = cell.dateKey === selectedDate;

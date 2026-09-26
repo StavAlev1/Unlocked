@@ -80,7 +80,9 @@ export default function PublicBookingShow({ booking }: PageProps) {
                             <div>
                                 <dt className="sr-only">When</dt>
                                 <dd
-                                    className={isCancelled ? 'line-through' : ''}
+                                    className={
+                                        isCancelled ? 'line-through' : ''
+                                    }
                                 >
                                     {dateTimeFormatter.format(
                                         new Date(booking.starts_at),
@@ -99,7 +101,9 @@ export default function PublicBookingShow({ booking }: PageProps) {
                             <dt className="sr-only">Players</dt>
                             <dd>
                                 {booking.party_size}{' '}
-                                {booking.party_size === 1 ? 'player' : 'players'}
+                                {booking.party_size === 1
+                                    ? 'player'
+                                    : 'players'}
                             </dd>
                         </div>
 

@@ -2,6 +2,7 @@ import { Head, Link, router } from '@inertiajs/react';
 import { CalendarX, X } from 'lucide-react';
 import { type FormEvent, useState } from 'react';
 import Heading from '@/components/heading';
+import Pagination from '@/components/pagination';
 import CancelBookingDialog from '@/components/rooms/cancel-booking-dialog';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -335,35 +336,7 @@ export default function BookingsIndex({ bookings, rooms, filters }: PageProps) {
                         </div>
 
                         {bookings.last_page > 1 && (
-                            <div className="flex flex-wrap items-center justify-center gap-1">
-                                {bookings.links.map((link, i) => (
-                                    <Button
-                                        key={i}
-                                        variant={
-                                            link.active ? 'default' : 'outline'
-                                        }
-                                        size="sm"
-                                        disabled={!link.url}
-                                        asChild={!!link.url}
-                                    >
-                                        {link.url ? (
-                                            <Link
-                                                href={link.url}
-                                                preserveState
-                                                dangerouslySetInnerHTML={{
-                                                    __html: link.label,
-                                                }}
-                                            />
-                                        ) : (
-                                            <span
-                                                dangerouslySetInnerHTML={{
-                                                    __html: link.label,
-                                                }}
-                                            />
-                                        )}
-                                    </Button>
-                                ))}
-                            </div>
+                            <Pagination links={bookings.links} />
                         )}
                     </>
                 )}

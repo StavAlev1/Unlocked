@@ -25,17 +25,16 @@
     },
     "javascript": {
         "formatter": {
-            "quoteStyle": "double",
-            "jsxQuoteStyle": "single",
+            "quoteStyle": "single",
+            "jsxQuoteStyle": "double",
             "semicolons": "always",
-            "trailingCommas": "es5",
-            "bracketSameLine": true
+            "trailingCommas": "all"
         }
     },
     "linter": {
         "enabled": true,
         "rules": {
-            "recommended": true,
+            "preset": "recommended",
             "nursery": {
                 "useSortedClasses": {
                     "level": "info",

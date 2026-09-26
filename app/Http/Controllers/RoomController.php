@@ -9,6 +9,7 @@ use App\Models\Room;
 use App\Models\Schedule;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -61,7 +62,7 @@ class RoomController extends Controller
 
         if ($request->hasFile('image')) {
             $room->update([
-                'image_path' => $request->file('image')->store('rooms', 'public'),
+                'image_path' => $this->storeImage($request->file('image')),
             ]);
         }
 
@@ -125,7 +126,7 @@ class RoomController extends Controller
                 Storage::disk('public')->delete($room->image_path);
             }
 
-            $room->image_path = $request->file('image')->store('rooms', 'public');
+            $room->image_path = $this->storeImage($request->file('image'));
         }
 
         $room->save();
@@ -172,6 +173,24 @@ class RoomController extends Controller
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Room deleted.')]);
 
         return to_route('rooms.index');
+    }
+
+    /**
+     * Store an uploaded room image on the public disk and return its path.
+     *
+     * @throws ValidationException
+     */
+    private function storeImage(UploadedFile $image): string
+    {
+        $path = $image->store('rooms', 'public');
+
+        if ($path === false) {
+            throw ValidationException::withMessages([
+                'image' => __('The image could not be saved. Please try again.'),
+            ]);
+        }
+
+        return $path;
     }
 
     /**

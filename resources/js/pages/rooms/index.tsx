@@ -2,6 +2,7 @@ import { Head, Link, router } from '@inertiajs/react';
 import { CalendarClock, Pencil, Plus, Ticket } from 'lucide-react';
 import { type FormEvent, useState } from 'react';
 import Heading from '@/components/heading';
+import Pagination from '@/components/pagination';
 import DeleteRoomDialog from '@/components/rooms/delete-room-dialog';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -269,35 +270,7 @@ export default function RoomsIndex({ rooms, filters }: PageProps) {
                         </div>
 
                         {rooms.last_page > 1 && (
-                            <div className="flex flex-wrap items-center justify-center gap-1">
-                                {rooms.links.map((link, i) => (
-                                    <Button
-                                        key={i}
-                                        variant={
-                                            link.active ? 'default' : 'outline'
-                                        }
-                                        size="sm"
-                                        disabled={!link.url}
-                                        asChild={!!link.url}
-                                    >
-                                        {link.url ? (
-                                            <Link
-                                                href={link.url}
-                                                preserveState
-                                                dangerouslySetInnerHTML={{
-                                                    __html: link.label,
-                                                }}
-                                            />
-                                        ) : (
-                                            <span
-                                                dangerouslySetInnerHTML={{
-                                                    __html: link.label,
-                                                }}
-                                            />
-                                        )}
-                                    </Button>
-                                ))}
-                            </div>
+                            <Pagination links={rooms.links} />
                         )}
                     </>
                 )}

@@ -33,7 +33,7 @@ class PublicBookingController extends Controller
      */
     public function show(Booking $booking): Response
     {
-        $booking->load('schedule.room');
+        $booking->load('schedule.room.user');
         $room = $booking->schedule->room;
 
         return Inertia::render('public/bookings/show', [
@@ -48,7 +48,7 @@ class PublicBookingController extends Controller
                     'uuid' => $room->uuid,
                     'name' => $room->name,
                     'image_url' => $room->image_url,
-                    'is_bookable' => $room->is_active && $booking->schedule->is_active,
+                    'is_bookable' => $room->isPubliclyBookable(),
                 ],
             ],
         ]);

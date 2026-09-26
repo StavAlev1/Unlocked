@@ -25,12 +25,15 @@ class UserController extends Controller
                 fn ($query) => $query->where('name', 'like', "%{$search}%")
                     ->orWhere('email', 'like', "%{$search}%")
             ))
+            // Owners waiting for approval come first so they are not missed.
+            ->orderByRaw('(is_admin = 0 and approved_at is null) desc')
             ->orderBy('name')
             ->paginate(15)
             ->withQueryString();
 
         return Inertia::render('admin/users/index', [
             'users' => $users,
+            'pendingCount' => User::query()->where('is_admin', false)->whereNull('approved_at')->count(),
             'filters' => ['search' => $search],
         ]);
     }
@@ -48,10 +51,13 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request): RedirectResponse
     {
-        User::create([
+        $user = User::create([
             ...$request->safe()->only(['name', 'email', 'password']),
             'is_admin' => $request->boolean('is_admin'),
         ]);
+
+        // Someone an administrator creates by hand is trusted from the start.
+        $user->approve();
 
         Inertia::flash('toast', ['type' => 'success', 'message' => __('User created.')]);
 

@@ -36,3 +36,8 @@ jobs:
 
       - name: Run CI Checks
         run: composer ci:check
+
+      - name: Audit Dependencies
+        run: |
+          composer audit
+          npm audit --omit=dev

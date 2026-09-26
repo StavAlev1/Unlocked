@@ -12,14 +12,15 @@ class StorePublicBookingRequest extends FormRequest
 
     /**
      * Get the room being booked, resolved from its public uuid. Rooms that are
-     * switched off, or whose schedule is, cannot be booked and look missing.
+     * switched off, or whose owner is not approved, cannot be booked and look
+     * missing.
      */
     public function room(): Room
     {
         /** @var Room $room */
         $room = $this->route('room');
 
-        abort_unless($room->is_active && $room->schedule?->is_active, 404);
+        abort_unless($room->isPubliclyBookable(), 404);
 
         return $room;
     }

@@ -17,8 +17,7 @@ class PublicRoomController extends Controller
     public function index(): Response
     {
         $rooms = Room::query()
-            ->where('is_active', true)
-            ->whereHas('schedule', fn ($query) => $query->where('is_active', true))
+            ->publiclyBookable()
             ->orderBy('name')
             ->paginate(12)
             ->through(fn (Room $room): array => $this->publicRoom($room));
@@ -33,9 +32,9 @@ class PublicRoomController extends Controller
      */
     public function show(Request $request, Room $room, BookableSlots $bookableSlots): Response
     {
-        $room->load('schedule');
+        $room->load(['schedule', 'user']);
 
-        abort_unless($room->is_active && $room->schedule?->is_active, 404);
+        abort_unless($room->isPubliclyBookable(), 404);
 
         $dates = $bookableSlots->dates($room);
         $requestedDate = $request->string('date')->toString();

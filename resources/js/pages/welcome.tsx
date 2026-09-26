@@ -229,6 +229,7 @@ export default function Welcome() {
 function LockGlyph({ className }: { className?: string }) {
     return (
         <svg
+            aria-hidden="true"
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -258,6 +259,7 @@ function DialArt({ className }: { className?: string }) {
 
     return (
         <svg
+            aria-hidden="true"
             viewBox="0 0 320 320"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"

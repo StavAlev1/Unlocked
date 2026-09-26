@@ -2,14 +2,9 @@ import { Head, Link } from '@inertiajs/react';
 import { Clock, Users } from 'lucide-react';
 import AppLogoIcon from '@/components/app-logo-icon';
 import Heading from '@/components/heading';
+import Pagination from '@/components/pagination';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import {
-    difficultyLabel,
-    difficultyVariant,
-    formatPrice,
-    paginationLabel,
-} from '@/lib/rooms';
+import { difficultyLabel, difficultyVariant, formatPrice } from '@/lib/rooms';
 import { show } from '@/routes/public/rooms';
 import type { Paginated, PublicRoom } from '@/types';
 
@@ -89,24 +84,8 @@ export default function PublicRoomsIndex({ rooms }: PageProps) {
             )}
 
             {rooms.last_page > 1 && (
-                <div className="mt-8 flex flex-wrap items-center justify-center gap-1">
-                    {rooms.links.map((link) => (
-                        <Button
-                            key={link.label}
-                            variant={link.active ? 'default' : 'outline'}
-                            size="sm"
-                            disabled={!link.url}
-                            asChild={!!link.url}
-                        >
-                            {link.url ? (
-                                <Link href={link.url}>
-                                    {paginationLabel(link.label)}
-                                </Link>
-                            ) : (
-                                <span>{paginationLabel(link.label)}</span>
-                            )}
-                        </Button>
-                    ))}
+                <div className="mt-8">
+                    <Pagination links={rooms.links} />
                 </div>
             )}
         </>

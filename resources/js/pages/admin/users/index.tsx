@@ -1,8 +1,11 @@
 import { Head, Link, router } from '@inertiajs/react';
 import { Pencil, Plus } from 'lucide-react';
 import { type FormEvent, useState } from 'react';
+import ApproveUserButton from '@/components/admin/approve-user-button';
 import DeleteUserDialog from '@/components/admin/delete-user-dialog';
+import RevokeApprovalDialog from '@/components/admin/revoke-approval-dialog';
 import Heading from '@/components/heading';
+import Pagination from '@/components/pagination';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -11,10 +14,15 @@ import type { Paginated, User } from '@/types';
 
 type PageProps = {
     users: Paginated<User>;
+    pendingCount: number;
     filters: { search: string };
 };
 
-export default function UsersIndex({ users, filters }: PageProps) {
+export default function UsersIndex({
+    users,
+    pendingCount,
+    filters,
+}: PageProps) {
     const [search, setSearch] = useState(filters.search);
 
     function onSearch(e: FormEvent) {
@@ -46,6 +54,16 @@ export default function UsersIndex({ users, filters }: PageProps) {
                     </Button>
                 </div>
 
+                {pendingCount > 0 && (
+                    <p className="bg-muted rounded-md px-3 py-2 text-sm">
+                        {pendingCount === 1
+                            ? '1 owner is awaiting approval.'
+                            : `${pendingCount} owners are awaiting approval.`}{' '}
+                        Their rooms stay off the public site until you approve
+                        them.
+                    </p>
+                )}
+
                 <form onSubmit={onSearch} className="flex items-center gap-2">
                     <Input
                         value={search}
@@ -66,6 +84,9 @@ export default function UsersIndex({ users, filters }: PageProps) {
                                 <th className="px-4 py-3 font-medium">Email</th>
                                 <th className="px-4 py-3 font-medium">Role</th>
                                 <th className="px-4 py-3 font-medium">
+                                    Status
+                                </th>
+                                <th className="px-4 py-3 font-medium">
                                     <span className="sr-only">Actions</span>
                                 </th>
                             </tr>
@@ -74,7 +95,7 @@ export default function UsersIndex({ users, filters }: PageProps) {
                             {users.data.length === 0 && (
                                 <tr>
                                     <td
-                                        colSpan={4}
+                                        colSpan={5}
                                         className="text-muted-foreground px-4 py-6 text-center"
                                     >
                                         No users found.
@@ -105,7 +126,30 @@ export default function UsersIndex({ users, filters }: PageProps) {
                                         </Badge>
                                     </td>
                                     <td className="px-4 py-3">
+                                        {user.is_admin ||
+                                        user.approved_at !== null ? (
+                                            <Badge variant="secondary">
+                                                Approved
+                                            </Badge>
+                                        ) : (
+                                            <Badge variant="destructive">
+                                                Pending
+                                            </Badge>
+                                        )}
+                                    </td>
+                                    <td className="px-4 py-3">
                                         <div className="flex items-center justify-end gap-2">
+                                            {!user.is_admin &&
+                                                (user.approved_at === null ? (
+                                                    <ApproveUserButton
+                                                        user={user}
+                                                    />
+                                                ) : (
+                                                    <RevokeApprovalDialog
+                                                        user={user}
+                                                    />
+                                                ))}
+
                                             <Button
                                                 variant="ghost"
                                                 size="icon"
@@ -128,35 +172,7 @@ export default function UsersIndex({ users, filters }: PageProps) {
                     </table>
                 </div>
 
-                {users.last_page > 1 && (
-                    <div className="flex flex-wrap items-center justify-center gap-1">
-                        {users.links.map((link, i) => (
-                            <Button
-                                key={i}
-                                variant={link.active ? 'default' : 'outline'}
-                                size="sm"
-                                disabled={!link.url}
-                                asChild={!!link.url}
-                            >
-                                {link.url ? (
-                                    <Link
-                                        href={link.url}
-                                        preserveState
-                                        dangerouslySetInnerHTML={{
-                                            __html: link.label,
-                                        }}
-                                    />
-                                ) : (
-                                    <span
-                                        dangerouslySetInnerHTML={{
-                                            __html: link.label,
-                                        }}
-                                    />
-                                )}
-                            </Button>
-                        ))}
-                    </div>
-                )}
+                {users.last_page > 1 && <Pagination links={users.links} />}
             </div>
         </>
     );

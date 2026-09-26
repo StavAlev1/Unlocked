@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class BookingSeeder extends Seeder
 {
@@ -40,7 +41,7 @@ class BookingSeeder extends Seeder
         $user = User::where('is_admin', true)->first();
 
         if ($user === null) {
-            $this->command?->warn('No admin user found — skipping BookingSeeder.');
+            Log::warning('No admin user found — skipping BookingSeeder.');
 
             return;
         }
@@ -121,7 +122,7 @@ class BookingSeeder extends Seeder
         }
 
         $stepMinutes = 15;
-        $steps = intdiv($open->diffInMinutes($latestStart), $stepMinutes);
+        $steps = (int) floor($open->diffInMinutes($latestStart) / $stepMinutes);
 
         return $open->clone()->addMinutes(fake()->numberBetween(0, max(0, $steps)) * $stepMinutes);
     }

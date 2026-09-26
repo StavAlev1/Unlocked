@@ -79,7 +79,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     index.form = indexForm
 /**
 * @see \App\Http\Controllers\PublicRoomController::show
- * @see app/Http/Controllers/PublicRoomController.php:34
+ * @see app/Http/Controllers/PublicRoomController.php:33
  * @route '/escape-rooms/{room}'
  */
 export const show = (args: { room: string | { uuid: string } } | [room: string | { uuid: string } ] | string | { uuid: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -94,7 +94,7 @@ show.definition = {
 
 /**
 * @see \App\Http\Controllers\PublicRoomController::show
- * @see app/Http/Controllers/PublicRoomController.php:34
+ * @see app/Http/Controllers/PublicRoomController.php:33
  * @route '/escape-rooms/{room}'
  */
 show.url = (args: { room: string | { uuid: string } } | [room: string | { uuid: string } ] | string | { uuid: string }, options?: RouteQueryOptions) => {
@@ -127,7 +127,7 @@ show.url = (args: { room: string | { uuid: string } } | [room: string | { uuid: 
 
 /**
 * @see \App\Http\Controllers\PublicRoomController::show
- * @see app/Http/Controllers/PublicRoomController.php:34
+ * @see app/Http/Controllers/PublicRoomController.php:33
  * @route '/escape-rooms/{room}'
  */
 show.get = (args: { room: string | { uuid: string } } | [room: string | { uuid: string } ] | string | { uuid: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -136,7 +136,7 @@ show.get = (args: { room: string | { uuid: string } } | [room: string | { uuid: 
 })
 /**
 * @see \App\Http\Controllers\PublicRoomController::show
- * @see app/Http/Controllers/PublicRoomController.php:34
+ * @see app/Http/Controllers/PublicRoomController.php:33
  * @route '/escape-rooms/{room}'
  */
 show.head = (args: { room: string | { uuid: string } } | [room: string | { uuid: string } ] | string | { uuid: string }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -146,7 +146,7 @@ show.head = (args: { room: string | { uuid: string } } | [room: string | { uuid:
 
     /**
 * @see \App\Http\Controllers\PublicRoomController::show
- * @see app/Http/Controllers/PublicRoomController.php:34
+ * @see app/Http/Controllers/PublicRoomController.php:33
  * @route '/escape-rooms/{room}'
  */
     const showForm = (args: { room: string | { uuid: string } } | [room: string | { uuid: string } ] | string | { uuid: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -156,7 +156,7 @@ show.head = (args: { room: string | { uuid: string } } | [room: string | { uuid:
 
             /**
 * @see \App\Http\Controllers\PublicRoomController::show
- * @see app/Http/Controllers/PublicRoomController.php:34
+ * @see app/Http/Controllers/PublicRoomController.php:33
  * @route '/escape-rooms/{room}'
  */
         showForm.get = (args: { room: string | { uuid: string } } | [room: string | { uuid: string } ] | string | { uuid: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -165,7 +165,7 @@ show.head = (args: { room: string | { uuid: string } } | [room: string | { uuid:
         })
             /**
 * @see \App\Http\Controllers\PublicRoomController::show
- * @see app/Http/Controllers/PublicRoomController.php:34
+ * @see app/Http/Controllers/PublicRoomController.php:33
  * @route '/escape-rooms/{room}'
  */
         showForm.head = (args: { room: string | { uuid: string } } | [room: string | { uuid: string } ] | string | { uuid: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
