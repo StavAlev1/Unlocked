@@ -33,8 +33,8 @@ class BookingSeeder extends Seeder
 
     /**
      * Seed dummy bookings for the admin user's rooms, so the dashboard has
-     * something to render. Safe to re-run: it only ever adds bookings, it
-     * never touches existing ones.
+     * something to render. Safe to re-run: rooms that already have bookings
+     * are skipped, so it never touches or overlaps existing ones.
      */
     public function run(): void
     {
@@ -54,6 +54,12 @@ class BookingSeeder extends Seeder
             // not have a schedule yet — the same defensive fallback the
             // controllers use.
             $schedule = $room->schedule ?? $room->schedule()->create(Schedule::defaultAttributes());
+
+            // Leave rooms that already have bookings alone: seeding more at
+            // random times could double-book them.
+            if ($schedule->bookings()->exists()) {
+                continue;
+            }
 
             $this->seedForRoom($room, $schedule);
         }
