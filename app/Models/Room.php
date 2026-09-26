@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\RoomDifficulty;
+use App\Models\Concerns\HasPublicUuid;
 use Database\Factories\RoomFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -15,6 +16,7 @@ use Illuminate\Support\Facades\Storage;
 
 /**
  * @property int $id
+ * @property string $uuid
  * @property int $user_id
  * @property string $name
  * @property string $slug
@@ -34,7 +36,7 @@ use Illuminate\Support\Facades\Storage;
 class Room extends Model
 {
     /** @use HasFactory<RoomFactory> */
-    use HasFactory;
+    use HasFactory, HasPublicUuid;
 
     /**
      * @var array<int, string>

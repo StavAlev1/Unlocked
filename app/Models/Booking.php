@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\BookingStatus;
+use App\Models\Concerns\HasPublicUuid;
 use Database\Factories\BookingFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Builder;
@@ -13,6 +14,7 @@ use Illuminate\Support\Carbon;
 
 /**
  * @property int $id
+ * @property string $uuid
  * @property int $schedule_id
  * @property Carbon $starts_at
  * @property Carbon $ends_at
@@ -31,7 +33,7 @@ use Illuminate\Support\Carbon;
 class Booking extends Model
 {
     /** @use HasFactory<BookingFactory> */
-    use HasFactory;
+    use HasFactory, HasPublicUuid;
 
     /**
      * Get the schedule the booking was made against.

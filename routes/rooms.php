@@ -5,7 +5,10 @@ use App\Http\Controllers\RoomController;
 use App\Http\Controllers\RoomScheduleController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['auth', 'verified'])->group(function () {
+// Owner routes are keyed by integer id and scoped to the signed-in user. The
+// numeric constraint makes anything else (such as a public uuid) a plain 404
+// at routing time instead of a type error inside the controller.
+Route::middleware(['auth', 'verified'])->whereNumber(['room', 'booking'])->group(function () {
     Route::resource('rooms', RoomController::class)->except('show');
 
     Route::prefix('rooms/{room}')->name('rooms.')->group(function () {

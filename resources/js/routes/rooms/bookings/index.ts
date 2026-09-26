@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../wayfinder'
 /**
 * @see \App\Http\Controllers\BookingController::index
- * @see app/Http/Controllers/BookingController.php:85
+ * @see app/Http/Controllers/BookingController.php:84
  * @route '/rooms/{room}/bookings'
  */
 export const index = (args: { room: string | number } | [room: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ index.definition = {
 
 /**
 * @see \App\Http\Controllers\BookingController::index
- * @see app/Http/Controllers/BookingController.php:85
+ * @see app/Http/Controllers/BookingController.php:84
  * @route '/rooms/{room}/bookings'
  */
 index.url = (args: { room: string | number } | [room: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -44,7 +44,7 @@ index.url = (args: { room: string | number } | [room: string | number ] | string
 
 /**
 * @see \App\Http\Controllers\BookingController::index
- * @see app/Http/Controllers/BookingController.php:85
+ * @see app/Http/Controllers/BookingController.php:84
  * @route '/rooms/{room}/bookings'
  */
 index.get = (args: { room: string | number } | [room: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -53,7 +53,7 @@ index.get = (args: { room: string | number } | [room: string | number ] | string
 })
 /**
 * @see \App\Http\Controllers\BookingController::index
- * @see app/Http/Controllers/BookingController.php:85
+ * @see app/Http/Controllers/BookingController.php:84
  * @route '/rooms/{room}/bookings'
  */
 index.head = (args: { room: string | number } | [room: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -63,7 +63,7 @@ index.head = (args: { room: string | number } | [room: string | number ] | strin
 
     /**
 * @see \App\Http\Controllers\BookingController::index
- * @see app/Http/Controllers/BookingController.php:85
+ * @see app/Http/Controllers/BookingController.php:84
  * @route '/rooms/{room}/bookings'
  */
     const indexForm = (args: { room: string | number } | [room: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -73,7 +73,7 @@ index.head = (args: { room: string | number } | [room: string | number ] | strin
 
             /**
 * @see \App\Http\Controllers\BookingController::index
- * @see app/Http/Controllers/BookingController.php:85
+ * @see app/Http/Controllers/BookingController.php:84
  * @route '/rooms/{room}/bookings'
  */
         indexForm.get = (args: { room: string | number } | [room: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -82,7 +82,7 @@ index.head = (args: { room: string | number } | [room: string | number ] | strin
         })
             /**
 * @see \App\Http\Controllers\BookingController::index
- * @see app/Http/Controllers/BookingController.php:85
+ * @see app/Http/Controllers/BookingController.php:84
  * @route '/rooms/{room}/bookings'
  */
         indexForm.head = (args: { room: string | number } | [room: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -98,7 +98,7 @@ index.head = (args: { room: string | number } | [room: string | number ] | strin
     index.form = indexForm
 /**
 * @see \App\Http\Controllers\BookingController::create
- * @see app/Http/Controllers/BookingController.php:116
+ * @see app/Http/Controllers/BookingController.php:115
  * @route '/rooms/{room}/bookings/create'
  */
 export const create = (args: { room: string | number } | [room: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -113,7 +113,7 @@ create.definition = {
 
 /**
 * @see \App\Http\Controllers\BookingController::create
- * @see app/Http/Controllers/BookingController.php:116
+ * @see app/Http/Controllers/BookingController.php:115
  * @route '/rooms/{room}/bookings/create'
  */
 create.url = (args: { room: string | number } | [room: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -141,7 +141,7 @@ create.url = (args: { room: string | number } | [room: string | number ] | strin
 
 /**
 * @see \App\Http\Controllers\BookingController::create
- * @see app/Http/Controllers/BookingController.php:116
+ * @see app/Http/Controllers/BookingController.php:115
  * @route '/rooms/{room}/bookings/create'
  */
 create.get = (args: { room: string | number } | [room: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -150,7 +150,7 @@ create.get = (args: { room: string | number } | [room: string | number ] | strin
 })
 /**
 * @see \App\Http\Controllers\BookingController::create
- * @see app/Http/Controllers/BookingController.php:116
+ * @see app/Http/Controllers/BookingController.php:115
  * @route '/rooms/{room}/bookings/create'
  */
 create.head = (args: { room: string | number } | [room: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -160,7 +160,7 @@ create.head = (args: { room: string | number } | [room: string | number ] | stri
 
     /**
 * @see \App\Http\Controllers\BookingController::create
- * @see app/Http/Controllers/BookingController.php:116
+ * @see app/Http/Controllers/BookingController.php:115
  * @route '/rooms/{room}/bookings/create'
  */
     const createForm = (args: { room: string | number } | [room: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -170,7 +170,7 @@ create.head = (args: { room: string | number } | [room: string | number ] | stri
 
             /**
 * @see \App\Http\Controllers\BookingController::create
- * @see app/Http/Controllers/BookingController.php:116
+ * @see app/Http/Controllers/BookingController.php:115
  * @route '/rooms/{room}/bookings/create'
  */
         createForm.get = (args: { room: string | number } | [room: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -179,7 +179,7 @@ create.head = (args: { room: string | number } | [room: string | number ] | stri
         })
             /**
 * @see \App\Http\Controllers\BookingController::create
- * @see app/Http/Controllers/BookingController.php:116
+ * @see app/Http/Controllers/BookingController.php:115
  * @route '/rooms/{room}/bookings/create'
  */
         createForm.head = (args: { room: string | number } | [room: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -195,7 +195,7 @@ create.head = (args: { room: string | number } | [room: string | number ] | stri
     create.form = createForm
 /**
 * @see \App\Http\Controllers\BookingController::store
- * @see app/Http/Controllers/BookingController.php:144
+ * @see app/Http/Controllers/BookingController.php:143
  * @route '/rooms/{room}/bookings'
  */
 export const store = (args: { room: string | number } | [room: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -210,7 +210,7 @@ store.definition = {
 
 /**
 * @see \App\Http\Controllers\BookingController::store
- * @see app/Http/Controllers/BookingController.php:144
+ * @see app/Http/Controllers/BookingController.php:143
  * @route '/rooms/{room}/bookings'
  */
 store.url = (args: { room: string | number } | [room: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -238,7 +238,7 @@ store.url = (args: { room: string | number } | [room: string | number ] | string
 
 /**
 * @see \App\Http\Controllers\BookingController::store
- * @see app/Http/Controllers/BookingController.php:144
+ * @see app/Http/Controllers/BookingController.php:143
  * @route '/rooms/{room}/bookings'
  */
 store.post = (args: { room: string | number } | [room: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -248,7 +248,7 @@ store.post = (args: { room: string | number } | [room: string | number ] | strin
 
     /**
 * @see \App\Http\Controllers\BookingController::store
- * @see app/Http/Controllers/BookingController.php:144
+ * @see app/Http/Controllers/BookingController.php:143
  * @route '/rooms/{room}/bookings'
  */
     const storeForm = (args: { room: string | number } | [room: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -258,7 +258,7 @@ store.post = (args: { room: string | number } | [room: string | number ] | strin
 
             /**
 * @see \App\Http\Controllers\BookingController::store
- * @see app/Http/Controllers/BookingController.php:144
+ * @see app/Http/Controllers/BookingController.php:143
  * @route '/rooms/{room}/bookings'
  */
         storeForm.post = (args: { room: string | number } | [room: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -269,7 +269,7 @@ store.post = (args: { room: string | number } | [room: string | number ] | strin
     store.form = storeForm
 /**
 * @see \App\Http\Controllers\BookingController::cancel
- * @see app/Http/Controllers/BookingController.php:181
+ * @see app/Http/Controllers/BookingController.php:161
  * @route '/rooms/{room}/bookings/{booking}/cancel'
  */
 export const cancel = (args: { room: string | number, booking: string | number } | [room: string | number, booking: string | number ], options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
@@ -284,7 +284,7 @@ cancel.definition = {
 
 /**
 * @see \App\Http\Controllers\BookingController::cancel
- * @see app/Http/Controllers/BookingController.php:181
+ * @see app/Http/Controllers/BookingController.php:161
  * @route '/rooms/{room}/bookings/{booking}/cancel'
  */
 cancel.url = (args: { room: string | number, booking: string | number } | [room: string | number, booking: string | number ], options?: RouteQueryOptions) => {
@@ -310,7 +310,7 @@ cancel.url = (args: { room: string | number, booking: string | number } | [room:
 
 /**
 * @see \App\Http\Controllers\BookingController::cancel
- * @see app/Http/Controllers/BookingController.php:181
+ * @see app/Http/Controllers/BookingController.php:161
  * @route '/rooms/{room}/bookings/{booking}/cancel'
  */
 cancel.patch = (args: { room: string | number, booking: string | number } | [room: string | number, booking: string | number ], options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
@@ -320,7 +320,7 @@ cancel.patch = (args: { room: string | number, booking: string | number } | [roo
 
     /**
 * @see \App\Http\Controllers\BookingController::cancel
- * @see app/Http/Controllers/BookingController.php:181
+ * @see app/Http/Controllers/BookingController.php:161
  * @route '/rooms/{room}/bookings/{booking}/cancel'
  */
     const cancelForm = (args: { room: string | number, booking: string | number } | [room: string | number, booking: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -335,7 +335,7 @@ cancel.patch = (args: { room: string | number, booking: string | number } | [roo
 
             /**
 * @see \App\Http\Controllers\BookingController::cancel
- * @see app/Http/Controllers/BookingController.php:181
+ * @see app/Http/Controllers/BookingController.php:161
  * @route '/rooms/{room}/bookings/{booking}/cancel'
  */
         cancelForm.patch = (args: { room: string | number, booking: string | number } | [room: string | number, booking: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({

@@ -1,5 +1,6 @@
 import { Head, Link, usePage } from '@inertiajs/react';
 import { dashboard, login, register } from '@/routes';
+import { index as publicRoomsIndex } from '@/routes/public/rooms';
 
 const steps = [
     {
@@ -61,6 +62,12 @@ export default function Welcome() {
                     </span>
 
                     <nav className="flex items-center gap-3 text-sm">
+                        <Link
+                            href={publicRoomsIndex()}
+                            className="px-3 py-2 text-[#EFE7D8] transition-colors hover:text-[#5A4FE8]"
+                        >
+                            Browse rooms
+                        </Link>
                         {auth.user ? (
                             <Link
                                 href={dashboard()}

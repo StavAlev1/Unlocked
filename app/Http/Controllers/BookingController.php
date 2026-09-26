@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Bookings\CreateBooking;
 use App\Enums\BookingStatus;
 use App\Http\Requests\CancelBookingRequest;
 use App\Http\Requests\StoreBookingRequest;
@@ -9,8 +10,6 @@ use App\Models\Booking;
 use App\Models\Schedule;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -141,34 +140,15 @@ class BookingController extends Controller
     /**
      * Store a newly created booking in storage.
      */
-    public function store(StoreBookingRequest $request, int $room): RedirectResponse
+    public function store(StoreBookingRequest $request, CreateBooking $createBooking, int $room): RedirectResponse
     {
         $room = $request->room();
-        $schedule = $room->schedule;
 
-        $startsAt = $request->date('starts_at');
-        $endsAt = $startsAt->clone()->addMinutes($room->duration_minutes);
-
-        DB::transaction(function () use ($request, $schedule, $startsAt, $endsAt): void {
-            $overlaps = $schedule->bookings()
-                ->active()
-                ->where('starts_at', '<', $endsAt)
-                ->where('ends_at', '>', $startsAt)
-                ->exists();
-
-            if ($overlaps) {
-                throw ValidationException::withMessages([
-                    'starts_at' => __('This time is no longer available.'),
-                ]);
-            }
-
-            $schedule->bookings()->create([
-                ...$request->safe()->only(['party_size', 'customer_name', 'customer_email', 'customer_phone', 'notes']),
-                'starts_at' => $startsAt,
-                'ends_at' => $endsAt,
-                'status' => BookingStatus::Confirmed,
-            ]);
-        });
+        $createBooking->handle(
+            $room,
+            $request->date('starts_at'),
+            $request->safe()->only(['party_size', 'customer_name', 'customer_email', 'customer_phone', 'notes']),
+        );
 
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Booking created.')]);
 
