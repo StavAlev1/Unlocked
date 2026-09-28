@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 // numeric constraint makes anything else (such as a public uuid) a plain 404
 // at routing time instead of a type error inside the controller.
 Route::middleware(['auth', 'verified'])->whereNumber(['room', 'booking'])->group(function () {
-    Route::resource('rooms', RoomController::class)->except('show');
+    Route::resource('rooms', RoomController::class);
 
     Route::prefix('rooms/{room}')->name('rooms.')->group(function () {
         Route::get('schedule/edit', [RoomScheduleController::class, 'edit'])->name('schedule.edit');
@@ -18,6 +18,7 @@ Route::middleware(['auth', 'verified'])->whereNumber(['room', 'booking'])->group
         Route::get('bookings', [BookingController::class, 'index'])->name('bookings.index');
         Route::get('bookings/create', [BookingController::class, 'create'])->name('bookings.create');
         Route::post('bookings', [BookingController::class, 'store'])->name('bookings.store');
+        Route::get('bookings/{booking}', [BookingController::class, 'show'])->name('bookings.show');
         Route::patch('bookings/{booking}/cancel', [BookingController::class, 'cancel'])->name('bookings.cancel');
     });
 });

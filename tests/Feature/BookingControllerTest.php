@@ -85,6 +85,73 @@ describe('index', function () {
     });
 });
 
+describe('show', function () {
+    test('the owner can view a booking for their own room', function () {
+        $user = User::factory()->create();
+        $room = createRoomWithSchedule($user);
+        $booking = Booking::factory()->for($room->schedule)->create(['customer_name' => 'Jane Doe']);
+
+        $response = $this->actingAs($user)->get(route('rooms.bookings.show', [$room, $booking]));
+
+        $response->assertOk();
+        $response->assertInertia(fn ($page) => $page
+            ->component('bookings/show')
+            ->where('booking.id', $booking->id)
+            ->where('booking.customer_name', 'Jane Doe')
+            ->where('room.id', $room->id)
+        );
+    });
+
+    test('a different user gets a 404 when viewing another user room booking', function () {
+        $owner = User::factory()->create();
+        $otherUser = User::factory()->create();
+        $room = createRoomWithSchedule($owner);
+        $booking = Booking::factory()->for($room->schedule)->create();
+
+        $response = $this->actingAs($otherUser)->get(route('rooms.bookings.show', [$room, $booking]));
+
+        $response->assertNotFound();
+    });
+
+    test('a booking that belongs to a different room on the same route is a 404', function () {
+        $user = User::factory()->create();
+        $room = createRoomWithSchedule($user);
+        $otherRoom = createRoomWithSchedule($user);
+        $booking = Booking::factory()->for($otherRoom->schedule)->create();
+
+        $response = $this->actingAs($user)->get(route('rooms.bookings.show', [$room, $booking]));
+
+        $response->assertNotFound();
+    });
+
+    test('guests are redirected to the login page', function () {
+        $room = createRoomWithSchedule(User::factory()->create());
+        $booking = Booking::factory()->for($room->schedule)->create();
+
+        $response = $this->get(route('rooms.bookings.show', [$room, $booking]));
+
+        $response->assertRedirect(route('login'));
+    });
+
+    test('exposes contact details and notes to the owner', function () {
+        $user = User::factory()->create();
+        $room = createRoomWithSchedule($user);
+        $booking = Booking::factory()->for($room->schedule)->create([
+            'customer_email' => 'jane@example.com',
+            'customer_phone' => '555-1234',
+            'notes' => 'Allergic to peanuts.',
+        ]);
+
+        $response = $this->actingAs($user)->get(route('rooms.bookings.show', [$room, $booking]));
+
+        $response->assertInertia(fn ($page) => $page
+            ->where('booking.customer_email', 'jane@example.com')
+            ->where('booking.customer_phone', '555-1234')
+            ->where('booking.notes', 'Allergic to peanuts.')
+        );
+    });
+});
+
 describe('create', function () {
     test('the owner can view the create booking page', function () {
         $user = User::factory()->create();

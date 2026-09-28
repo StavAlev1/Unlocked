@@ -2,6 +2,7 @@ export type BookingStatus = 'confirmed' | 'cancelled';
 
 export type Booking = {
     id: number;
+    uuid?: string;
     starts_at: string;
     ends_at: string;
     party_size: number;
@@ -12,6 +13,7 @@ export type Booking = {
     notes: string | null;
     cancelled_at: string | null;
     cancellation_reason: string | null;
+    created_at?: string;
     [key: string]: unknown;
 };
 

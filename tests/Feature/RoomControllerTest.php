@@ -143,6 +143,76 @@ describe('store', function () {
     });
 });
 
+describe('show', function () {
+    test('the owner can view their own room', function () {
+        $user = User::factory()->create();
+        $room = Room::factory()->for($user)->create();
+        Schedule::factory()->for($room)->create();
+
+        $response = $this->actingAs($user)->get(route('rooms.show', $room));
+
+        $response->assertOk();
+        $response->assertInertia(fn ($page) => $page
+            ->component('rooms/show')
+            ->where('room.id', $room->id)
+            ->where('room.name', $room->name)
+        );
+    });
+
+    test('a different user gets a 404 when viewing another user room', function () {
+        $owner = User::factory()->create();
+        $otherUser = User::factory()->create();
+        $room = Room::factory()->for($owner)->create();
+
+        $response = $this->actingAs($otherUser)->get(route('rooms.show', $room));
+
+        $response->assertNotFound();
+    });
+
+    test('guests are redirected to the login page', function () {
+        $room = Room::factory()->create();
+
+        $response = $this->get(route('rooms.show', $room));
+
+        $response->assertRedirect(route('login'));
+    });
+
+    test('a room without a schedule yet still shows, with a schedule created on the fly', function () {
+        $user = User::factory()->create();
+        $room = Room::factory()->for($user)->create();
+
+        $response = $this->actingAs($user)->get(route('rooms.show', $room));
+
+        $response->assertOk();
+        expect($room->fresh()->schedule)->not->toBeNull();
+    });
+
+    test('shows the room\'s upcoming confirmed bookings, most imminent first', function () {
+        $user = User::factory()->create();
+        $room = Room::factory()->for($user)->create();
+        $schedule = Schedule::factory()->for($room)->create();
+
+        $soon = Booking::factory()->for($schedule)->create(['starts_at' => now()->addDay(), 'ends_at' => now()->addDay()->addHour()]);
+        $later = Booking::factory()->for($schedule)->create(['starts_at' => now()->addWeek(), 'ends_at' => now()->addWeek()->addHour()]);
+        Booking::factory()->for($schedule)->create(['starts_at' => now()->subDay(), 'ends_at' => now()->subDay()->addHour()]);
+        Booking::factory()->for($schedule)->create([
+            'starts_at' => now()->addDays(2),
+            'ends_at' => now()->addDays(2)->addHour(),
+            'status' => BookingStatus::Cancelled,
+        ]);
+
+        $response = $this->actingAs($user)->get(route('rooms.show', $room));
+
+        $response->assertInertia(fn ($page) => $page
+            ->has('upcomingBookings', 2)
+            ->where('upcomingBookings.0.id', $soon->id)
+            ->where('upcomingBookings.1.id', $later->id)
+            ->where('stats.upcoming_count', 2)
+            ->where('stats.total_bookings', 4)
+        );
+    });
+});
+
 describe('edit', function () {
     test('the owner can view the edit page', function () {
         $user = User::factory()->create();

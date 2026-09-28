@@ -7,7 +7,7 @@ import DeleteRoomDialog from '@/components/rooms/delete-room-dialog';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { create, edit, index } from '@/routes/rooms';
+import { create, edit, index, show } from '@/routes/rooms';
 import { index as bookingsIndex } from '@/routes/rooms/bookings';
 import { edit as scheduleEdit } from '@/routes/rooms/schedule';
 import type { Paginated, Room, RoomDifficulty } from '@/types';
@@ -162,9 +162,12 @@ export default function RoomsIndex({ rooms, filters }: PageProps) {
                                                             />
                                                         )}
                                                     </div>
-                                                    <span className="font-medium">
+                                                    <Link
+                                                        href={show(room.id)}
+                                                        className="hover:text-primary font-medium"
+                                                    >
                                                         {room.name}
-                                                    </span>
+                                                    </Link>
                                                 </div>
                                             </td>
                                             <td className="px-4 py-3">

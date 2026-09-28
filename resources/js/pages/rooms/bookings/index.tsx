@@ -8,7 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { index as roomsIndex } from '@/routes/rooms';
-import { create, index } from '@/routes/rooms/bookings';
+import { show as bookingShow, create, index } from '@/routes/rooms/bookings';
 import { edit as editSchedule } from '@/routes/rooms/schedule';
 import type { Booking, BookingStatus, Paginated, Room } from '@/types';
 
@@ -178,14 +178,20 @@ export default function BookingsIndex({
                                             className="border-b last:border-b-0"
                                         >
                                             <td className="px-4 py-3">
-                                                <div className="flex flex-col">
+                                                <Link
+                                                    href={bookingShow([
+                                                        room.id,
+                                                        booking.id,
+                                                    ])}
+                                                    className="hover:text-primary flex flex-col"
+                                                >
                                                     <span className="font-medium">
                                                         {booking.customer_name}
                                                     </span>
                                                     <span className="text-muted-foreground text-xs">
                                                         {booking.customer_email}
                                                     </span>
-                                                </div>
+                                                </Link>
                                             </td>
                                             <td className="text-muted-foreground px-4 py-3">
                                                 {dateFormatter.format(

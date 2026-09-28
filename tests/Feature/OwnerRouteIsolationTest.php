@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
  */
 
 dataset('owner routes given a uuid instead of an id', [
+    'show room' => ['GET', '/rooms/{room-uuid}'],
     'edit room' => ['GET', '/rooms/{room-uuid}/edit'],
     'update room' => ['PUT', '/rooms/{room-uuid}'],
     'delete room' => ['DELETE', '/rooms/{room-uuid}'],
@@ -23,6 +24,8 @@ dataset('owner routes given a uuid instead of an id', [
     'store booking' => ['POST', '/rooms/{room-uuid}/bookings'],
     'edit schedule' => ['GET', '/rooms/{room-uuid}/schedule/edit'],
     'update schedule' => ['PUT', '/rooms/{room-uuid}/schedule'],
+    'show booking by uuid' => ['GET', '/rooms/{room-id}/bookings/{booking-uuid}'],
+    'show booking in room by uuid' => ['GET', '/rooms/{room-uuid}/bookings/{booking-uuid}'],
     'cancel booking by uuid' => ['PATCH', '/rooms/{room-id}/bookings/{booking-uuid}/cancel'],
     'cancel booking in room by uuid' => ['PATCH', '/rooms/{room-uuid}/bookings/{booking-uuid}/cancel'],
 ]);

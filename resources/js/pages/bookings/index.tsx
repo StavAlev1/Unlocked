@@ -16,7 +16,10 @@ import {
     SelectValue,
 } from '@/components/ui/select';
 import { index } from '@/routes/bookings';
-import { index as roomBookingsIndex } from '@/routes/rooms/bookings';
+import {
+    show as bookingShow,
+    index as roomBookingsIndex,
+} from '@/routes/rooms/bookings';
 import type { BookingWithRoom, Paginated, Room } from '@/types';
 
 type PageProps = {
@@ -284,14 +287,20 @@ export default function BookingsIndex({ bookings, rooms, filters }: PageProps) {
                                                 </Link>
                                             </td>
                                             <td className="px-4 py-3">
-                                                <div className="flex flex-col">
+                                                <Link
+                                                    href={bookingShow([
+                                                        booking.room.id,
+                                                        booking.id,
+                                                    ])}
+                                                    className="hover:text-primary flex flex-col"
+                                                >
                                                     <span className="font-medium">
                                                         {booking.customer_name}
                                                     </span>
                                                     <span className="text-muted-foreground text-xs">
                                                         {booking.customer_email}
                                                     </span>
-                                                </div>
+                                                </Link>
                                             </td>
                                             <td className="text-muted-foreground px-4 py-3">
                                                 {dateFormatter.format(

@@ -110,6 +110,42 @@ class BookingController extends Controller
     }
 
     /**
+     * Display the specified booking.
+     */
+    public function show(Request $request, int $room, int $booking): Response
+    {
+        $room = $request->user()->rooms()->findOrFail($room);
+        $booking = $room->schedule->bookings()->findOrFail($booking);
+
+        $this->authorize('view', $booking);
+
+        return Inertia::render('bookings/show', [
+            'room' => [
+                'id' => $room->id,
+                'name' => $room->name,
+                'slug' => $room->slug,
+                'image_url' => $room->image_url,
+            ],
+            'booking' => [
+                'id' => $booking->id,
+                'starts_at' => $booking->starts_at->toIso8601String(),
+                'ends_at' => $booking->ends_at->toIso8601String(),
+                'party_size' => $booking->party_size,
+                'status' => $booking->status->value,
+                'customer_name' => $booking->customer_name,
+                'customer_email' => $booking->customer_email,
+                'customer_phone' => $booking->customer_phone,
+                'notes' => $booking->notes,
+                'cancelled_at' => $booking->cancelled_at?->toIso8601String(),
+                'cancellation_reason' => $booking->cancellation_reason,
+                'created_at' => $booking->created_at?->toIso8601String(),
+                'uuid' => $booking->uuid,
+            ],
+            'timezone' => $room->schedule->timezone,
+        ]);
+    }
+
+    /**
      * Show the form for creating a new booking.
      */
     public function create(Request $request, int $room): Response

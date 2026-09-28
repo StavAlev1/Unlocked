@@ -74,6 +74,63 @@ class RoomController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     */
+    public function show(Request $request, int $room): Response
+    {
+        $room = $request->user()->rooms()->findOrFail($room);
+
+        $this->authorize('view', $room);
+
+        $schedule = $room->schedule()->firstOrCreate([], Schedule::defaultAttributes());
+
+        $upcomingCount = $schedule->bookings()->active()->where('starts_at', '>=', now())->count();
+
+        $upcomingBookings = $schedule->bookings()
+            ->active()
+            ->where('starts_at', '>=', now())
+            ->orderBy('starts_at')
+            ->limit(5)
+            ->get();
+
+        return Inertia::render('rooms/show', [
+            'room' => [
+                'id' => $room->id,
+                'name' => $room->name,
+                'slug' => $room->slug,
+                'description' => $room->description,
+                'difficulty' => $room->difficulty->value,
+                'duration_minutes' => $room->duration_minutes,
+                'min_players' => $room->min_players,
+                'max_players' => $room->max_players,
+                'price_cents' => $room->price_cents,
+                'image_url' => $room->image_url,
+                'is_active' => $room->is_active,
+                'created_at' => $room->created_at?->toIso8601String(),
+            ],
+            'schedule' => [
+                'open_days' => $schedule->open_days,
+                'open_time' => $schedule->open_time,
+                'close_time' => $schedule->close_time,
+                'timezone' => $schedule->timezone,
+                'is_active' => $schedule->is_active,
+            ],
+            'stats' => [
+                'upcoming_count' => $upcomingCount,
+                'total_bookings' => $schedule->bookings()->count(),
+            ],
+            'upcomingBookings' => $upcomingBookings->map(fn ($booking) => [
+                'id' => $booking->id,
+                'starts_at' => $booking->starts_at->toIso8601String(),
+                'ends_at' => $booking->ends_at->toIso8601String(),
+                'party_size' => $booking->party_size,
+                'status' => $booking->status->value,
+                'customer_name' => $booking->customer_name,
+            ]),
+        ]);
+    }
+
+    /**
      * Show the form for editing the specified resource.
      */
     public function edit(Request $request, int $room): Response
