@@ -6,7 +6,8 @@ import Heading from '@/components/heading';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { dashboard } from '@/routes';
-import { create, edit as editRoom } from '@/routes/rooms';
+import { create } from '@/routes/rooms';
+import { show as bookingShow } from '@/routes/rooms/bookings';
 import type { DashboardBooking } from '@/types';
 
 type PageProps = {
@@ -146,40 +147,40 @@ export default function Dashboard({
                             ) : (
                                 <ul className="divide-border -my-1 divide-y">
                                     {listBookings.map((booking) => (
-                                        <li
-                                            key={booking.id}
-                                            className="flex items-center justify-between gap-4 py-3"
-                                        >
-                                            <div className="min-w-0">
-                                                <Link
-                                                    href={editRoom(
-                                                        booking.room.id,
-                                                    )}
-                                                    className="hover:text-primary truncate text-sm font-medium"
-                                                >
-                                                    {booking.room.name}
-                                                </Link>
-                                                <p className="text-muted-foreground truncate text-xs">
-                                                    {booking.customer_name}{' '}
-                                                    &middot; party of{' '}
-                                                    {booking.party_size}
-                                                </p>
-                                            </div>
-                                            <div className="text-right">
-                                                <Badge variant="default">
-                                                    {selectedDate !== null
-                                                        ? timeFormatter.format(
-                                                              new Date(
-                                                                  booking.starts_at,
-                                                              ),
-                                                          )
-                                                        : dateTimeFormatter.format(
-                                                              new Date(
-                                                                  booking.starts_at,
-                                                              ),
-                                                          )}
-                                                </Badge>
-                                            </div>
+                                        <li key={booking.id}>
+                                            <Link
+                                                href={bookingShow([
+                                                    booking.room.id,
+                                                    booking.id,
+                                                ])}
+                                                className="hover:bg-accent -mx-2 flex items-center justify-between gap-4 rounded-md px-2 py-3 transition-colors"
+                                            >
+                                                <div className="min-w-0">
+                                                    <p className="truncate text-sm font-medium">
+                                                        {booking.room.name}
+                                                    </p>
+                                                    <p className="text-muted-foreground truncate text-xs">
+                                                        {booking.customer_name}{' '}
+                                                        &middot; party of{' '}
+                                                        {booking.party_size}
+                                                    </p>
+                                                </div>
+                                                <div className="text-right">
+                                                    <Badge variant="default">
+                                                        {selectedDate !== null
+                                                            ? timeFormatter.format(
+                                                                  new Date(
+                                                                      booking.starts_at,
+                                                                  ),
+                                                              )
+                                                            : dateTimeFormatter.format(
+                                                                  new Date(
+                                                                      booking.starts_at,
+                                                                  ),
+                                                              )}
+                                                    </Badge>
+                                                </div>
+                                            </Link>
                                         </li>
                                     ))}
                                 </ul>
