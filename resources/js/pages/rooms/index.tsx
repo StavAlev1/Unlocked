@@ -147,7 +147,7 @@ export default function RoomsIndex({ rooms, filters }: PageProps) {
                                     {rooms.data.map((room) => (
                                         <tr
                                             key={room.id}
-                                            className="border-b last:border-b-0"
+                                            className="hover:bg-muted/40 border-b transition-colors last:border-b-0"
                                         >
                                             <td className="px-4 py-3">
                                                 <div className="flex items-center gap-3">

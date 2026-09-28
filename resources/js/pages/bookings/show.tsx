@@ -152,7 +152,7 @@ export default function BookingShow({ room, booking, timezone }: PageProps) {
                 </div>
 
                 {isCancelled && (
-                    <div className="border-destructive/30 bg-destructive/5 text-destructive-foreground space-y-1 rounded-xl border p-4 text-sm">
+                    <div className="border-destructive/30 bg-destructive/5 text-destructive-text space-y-1 rounded-xl border p-4 text-sm">
                         <p className="font-medium">
                             Cancelled
                             {booking.cancelled_at &&

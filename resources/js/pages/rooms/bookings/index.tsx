@@ -175,7 +175,7 @@ export default function BookingsIndex({
                                     {bookings.data.map((booking) => (
                                         <tr
                                             key={booking.id}
-                                            className="border-b last:border-b-0"
+                                            className="hover:bg-muted/40 border-b transition-colors last:border-b-0"
                                         >
                                             <td className="px-4 py-3">
                                                 <Link

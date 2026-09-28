@@ -125,7 +125,7 @@ export default function MonthCalendar({
                                 isSelected
                                     ? 'bg-primary text-primary-foreground'
                                     : 'hover:bg-accent hover:text-accent-foreground',
-                                isToday && !isSelected && 'text-primary',
+                                isToday && !isSelected && 'text-primary-text',
                             )}
                         >
                             <span
