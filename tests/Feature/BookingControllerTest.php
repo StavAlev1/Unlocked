@@ -5,6 +5,10 @@ use App\Models\Booking;
 use App\Models\Room;
 use App\Models\Schedule;
 use App\Models\User;
+use App\Notifications\BookingCancelled;
+use App\Notifications\BookingConfirmed;
+use App\Notifications\NewBookingReceived;
+use Illuminate\Support\Facades\Notification;
 
 function createRoomWithSchedule(User $user, array $roomOverrides = [], array $scheduleOverrides = []): Room
 {
@@ -231,6 +235,32 @@ describe('store', function () {
         expect(Booking::count())->toBe(0);
     });
 
+    test('the customer is emailed a confirmation, but the owner is not notified', function () {
+        Notification::fake();
+
+        $this->travelTo('2026-09-22 08:00:00');
+        $user = User::factory()->create();
+        $room = createRoomWithSchedule($user, [
+            'duration_minutes' => 60,
+            'min_players' => 2,
+            'max_players' => 6,
+        ]);
+
+        $this->actingAs($user)->post(route('rooms.bookings.store', $room), validBookingPayload([
+            'starts_at' => '2026-09-23 12:00:00',
+            'customer_email' => 'jane@example.com',
+        ]))->assertSessionHasNoErrors();
+
+        $booking = Booking::where('schedule_id', $room->schedule->id)->firstOrFail();
+
+        Notification::assertSentOnDemand(
+            BookingConfirmed::class,
+            fn ($notification, $channels, $notifiable) => $notifiable->routes['mail'] === 'jane@example.com'
+                && $notification->toMail((object) [])->subject === "Your booking at {$room->name} is confirmed"
+        );
+        Notification::assertNotSentTo($user, NewBookingReceived::class);
+    });
+
     test('party_size above the room maximum fails validation', function () {
         $this->travelTo('2026-09-22 08:00:00');
         $user = User::factory()->create();
@@ -418,6 +448,25 @@ describe('cancel', function () {
         expect($booking->cancelled_at)->not->toBeNull();
         expect($booking->cancellation_reason)->toBe('Customer requested a refund.');
         expect(Booking::find($booking->id))->not->toBeNull();
+    });
+
+    test('the customer is emailed when their booking is cancelled', function () {
+        Notification::fake();
+
+        $user = User::factory()->create();
+        $room = createRoomWithSchedule($user);
+        $booking = Booking::factory()->for($room->schedule)->create([
+            'customer_email' => 'jane@example.com',
+        ]);
+
+        $this->actingAs($user)->patch(route('rooms.bookings.cancel', [$room, $booking]), [
+            'cancellation_reason' => 'Customer requested a refund.',
+        ]);
+
+        Notification::assertSentOnDemand(
+            BookingCancelled::class,
+            fn ($notification, $channels, $notifiable) => $notifiable->routes['mail'] === 'jane@example.com'
+        );
     });
 });
 

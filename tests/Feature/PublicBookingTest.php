@@ -5,7 +5,10 @@ use App\Models\Booking;
 use App\Models\Room;
 use App\Models\Schedule;
 use App\Models\User;
+use App\Notifications\BookingConfirmed;
+use App\Notifications\NewBookingReceived;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Notification;
 
 beforeEach(function () {
     // Thursday 24 Sep 2026, 09:00 UTC.
@@ -261,6 +264,21 @@ describe('creating a booking', function () {
             ->and($booking->customer_email)->toBe('ada@example.com')
             ->and($booking->starts_at->toIso8601ZuluString())->toBe('2026-09-26T10:00:00Z')
             ->and($booking->ends_at->toIso8601ZuluString())->toBe('2026-09-26T11:00:00Z');
+    });
+
+    test('the customer is emailed a confirmation and the owner is notified of the new booking', function () {
+        Notification::fake();
+
+        $room = bookableRoom();
+
+        $this->post(route('public.bookings.store', $room), guestBookingPayload())
+            ->assertSessionHasNoErrors();
+
+        Notification::assertSentOnDemand(
+            BookingConfirmed::class,
+            fn ($notification, $channels, $notifiable) => $notifiable->routes['mail'] === 'ada@example.com'
+        );
+        Notification::assertSentTo($room->user, NewBookingReceived::class);
     });
 
     test('a slot that is already taken is refused', function () {

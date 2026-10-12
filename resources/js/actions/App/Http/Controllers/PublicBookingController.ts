@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\PublicBookingController::store
- * @see app/Http/Controllers/PublicBookingController.php:18
+ * @see app/Http/Controllers/PublicBookingController.php:21
  * @route '/escape-rooms/{room}/bookings'
  */
 export const store = (args: { room: string | { uuid: string } } | [room: string | { uuid: string } ] | string | { uuid: string }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -16,7 +16,7 @@ store.definition = {
 
 /**
 * @see \App\Http\Controllers\PublicBookingController::store
- * @see app/Http/Controllers/PublicBookingController.php:18
+ * @see app/Http/Controllers/PublicBookingController.php:21
  * @route '/escape-rooms/{room}/bookings'
  */
 store.url = (args: { room: string | { uuid: string } } | [room: string | { uuid: string } ] | string | { uuid: string }, options?: RouteQueryOptions) => {
@@ -49,7 +49,7 @@ store.url = (args: { room: string | { uuid: string } } | [room: string | { uuid:
 
 /**
 * @see \App\Http\Controllers\PublicBookingController::store
- * @see app/Http/Controllers/PublicBookingController.php:18
+ * @see app/Http/Controllers/PublicBookingController.php:21
  * @route '/escape-rooms/{room}/bookings'
  */
 store.post = (args: { room: string | { uuid: string } } | [room: string | { uuid: string } ] | string | { uuid: string }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -59,7 +59,7 @@ store.post = (args: { room: string | { uuid: string } } | [room: string | { uuid
 
     /**
 * @see \App\Http\Controllers\PublicBookingController::store
- * @see app/Http/Controllers/PublicBookingController.php:18
+ * @see app/Http/Controllers/PublicBookingController.php:21
  * @route '/escape-rooms/{room}/bookings'
  */
     const storeForm = (args: { room: string | { uuid: string } } | [room: string | { uuid: string } ] | string | { uuid: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -69,7 +69,7 @@ store.post = (args: { room: string | { uuid: string } } | [room: string | { uuid
 
             /**
 * @see \App\Http\Controllers\PublicBookingController::store
- * @see app/Http/Controllers/PublicBookingController.php:18
+ * @see app/Http/Controllers/PublicBookingController.php:21
  * @route '/escape-rooms/{room}/bookings'
  */
         storeForm.post = (args: { room: string | { uuid: string } } | [room: string | { uuid: string } ] | string | { uuid: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -80,7 +80,7 @@ store.post = (args: { room: string | { uuid: string } } | [room: string | { uuid
     store.form = storeForm
 /**
 * @see \App\Http\Controllers\PublicBookingController::show
- * @see app/Http/Controllers/PublicBookingController.php:34
+ * @see app/Http/Controllers/PublicBookingController.php:42
  * @route '/booking/{booking}'
  */
 export const show = (args: { booking: string | { uuid: string } } | [booking: string | { uuid: string } ] | string | { uuid: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -95,7 +95,7 @@ show.definition = {
 
 /**
 * @see \App\Http\Controllers\PublicBookingController::show
- * @see app/Http/Controllers/PublicBookingController.php:34
+ * @see app/Http/Controllers/PublicBookingController.php:42
  * @route '/booking/{booking}'
  */
 show.url = (args: { booking: string | { uuid: string } } | [booking: string | { uuid: string } ] | string | { uuid: string }, options?: RouteQueryOptions) => {
@@ -128,7 +128,7 @@ show.url = (args: { booking: string | { uuid: string } } | [booking: string | { 
 
 /**
 * @see \App\Http\Controllers\PublicBookingController::show
- * @see app/Http/Controllers/PublicBookingController.php:34
+ * @see app/Http/Controllers/PublicBookingController.php:42
  * @route '/booking/{booking}'
  */
 show.get = (args: { booking: string | { uuid: string } } | [booking: string | { uuid: string } ] | string | { uuid: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -137,7 +137,7 @@ show.get = (args: { booking: string | { uuid: string } } | [booking: string | { 
 })
 /**
 * @see \App\Http\Controllers\PublicBookingController::show
- * @see app/Http/Controllers/PublicBookingController.php:34
+ * @see app/Http/Controllers/PublicBookingController.php:42
  * @route '/booking/{booking}'
  */
 show.head = (args: { booking: string | { uuid: string } } | [booking: string | { uuid: string } ] | string | { uuid: string }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -147,7 +147,7 @@ show.head = (args: { booking: string | { uuid: string } } | [booking: string | {
 
     /**
 * @see \App\Http\Controllers\PublicBookingController::show
- * @see app/Http/Controllers/PublicBookingController.php:34
+ * @see app/Http/Controllers/PublicBookingController.php:42
  * @route '/booking/{booking}'
  */
     const showForm = (args: { booking: string | { uuid: string } } | [booking: string | { uuid: string } ] | string | { uuid: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -157,7 +157,7 @@ show.head = (args: { booking: string | { uuid: string } } | [booking: string | {
 
             /**
 * @see \App\Http\Controllers\PublicBookingController::show
- * @see app/Http/Controllers/PublicBookingController.php:34
+ * @see app/Http/Controllers/PublicBookingController.php:42
  * @route '/booking/{booking}'
  */
         showForm.get = (args: { booking: string | { uuid: string } } | [booking: string | { uuid: string } ] | string | { uuid: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -166,7 +166,7 @@ show.head = (args: { booking: string | { uuid: string } } | [booking: string | {
         })
             /**
 * @see \App\Http\Controllers\PublicBookingController::show
- * @see app/Http/Controllers/PublicBookingController.php:34
+ * @see app/Http/Controllers/PublicBookingController.php:42
  * @route '/booking/{booking}'
  */
         showForm.head = (args: { booking: string | { uuid: string } } | [booking: string | { uuid: string } ] | string | { uuid: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({

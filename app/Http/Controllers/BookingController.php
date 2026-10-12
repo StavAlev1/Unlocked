@@ -8,8 +8,11 @@ use App\Http\Requests\CancelBookingRequest;
 use App\Http\Requests\StoreBookingRequest;
 use App\Models\Booking;
 use App\Models\Schedule;
+use App\Notifications\BookingCancelled;
+use App\Notifications\BookingConfirmed;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -180,11 +183,13 @@ class BookingController extends Controller
     {
         $room = $request->room();
 
-        $createBooking->handle(
+        $booking = $createBooking->handle(
             $room,
             $request->date('starts_at'),
             $request->safe()->only(['party_size', 'customer_name', 'customer_email', 'customer_phone', 'notes']),
         );
+
+        Notification::route('mail', $booking->customer_email)->notify(new BookingConfirmed($booking));
 
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Booking created.')]);
 
@@ -206,6 +211,8 @@ class BookingController extends Controller
             'cancelled_at' => now(),
             'cancellation_reason' => $request->validated('cancellation_reason'),
         ]);
+
+        Notification::route('mail', $booking->customer_email)->notify(new BookingCancelled($booking));
 
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Booking cancelled.')]);
 

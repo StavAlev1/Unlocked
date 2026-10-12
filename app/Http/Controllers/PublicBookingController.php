@@ -6,7 +6,10 @@ use App\Actions\Bookings\CreateBooking;
 use App\Http\Requests\StorePublicBookingRequest;
 use App\Models\Booking;
 use App\Models\Room;
+use App\Notifications\BookingConfirmed;
+use App\Notifications\NewBookingReceived;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Notification;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -17,11 +20,16 @@ class PublicBookingController extends Controller
      */
     public function store(StorePublicBookingRequest $request, CreateBooking $createBooking, Room $room): RedirectResponse
     {
+        $room = $request->room();
+
         $booking = $createBooking->handle(
-            $request->room(),
+            $room,
             $request->date('starts_at'),
             $request->safe()->only(['party_size', 'customer_name', 'customer_email', 'customer_phone', 'notes']),
         );
+
+        Notification::route('mail', $booking->customer_email)->notify(new BookingConfirmed($booking));
+        $room->user->notify(new NewBookingReceived($booking));
 
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Your booking is confirmed.')]);
 
